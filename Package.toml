@@ -1,0 +1,51 @@
+# vault configurations
+[meta]
+    # friendly name
+    title =                 "Playground"
+    # contributors
+    author =                "nanos world™"
+    # version
+    version =               "0.1.0"
+
+# map configurations
+[map]
+    # auto destroy all entities spawned by this package when it unloads
+    auto_cleanup =          true
+    # whether to load all level entities on client - only enable it if your package needs to use level static meshes entities
+    load_level_entities =   false
+    # the game version (major.minor) at the time this package was created, for granting compatibility between breaking changes
+    compatibility_version = "1.142"
+    # packages requirements
+    packages_requirements = [
+                            "default-weapons",
+                            "default-vehicles",
+                            "default-characters",
+    ]
+    # asset packs requirements
+    assets_requirements = [
+                            "ts-fireworks",
+    ]
+    # compatible game modes
+    compatible_game_modes = [
+                            "sandbox",
+    ]
+    # map asset
+    map_asset =             "nanos-world::PlaygroundMap"
+    # list of spawn points
+    spawn_points = [
+                            { location = "Vector(584.22, 79.86, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(329.86, 334.22, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(-29.86, 334.22, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(-284.22, 79.86, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(-284.22, -279.86, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(-29.86, -534.22, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(329.86, -534.22, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" },
+                            { location = "Vector(584.22, -279.86, 117.00)", rotation = "Rotator(0.00, 0.00, 0.00)" }
+    ]
+    # whether to enable water buoyancy components on Actors if you map uses Water Plugin - disable it for additional performance on maps that don't need it
+    enable_water_buoyancy = true
+
+# map custom data
+# those data can be accessed through Server.GetMapConfig() method from any package
+[custom_data]
+    # something = 123

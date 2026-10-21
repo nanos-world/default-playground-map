@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; font-family: sans-serif; }
+	body { background: linear-gradient(135deg, #2b0f5c, #0d6e8a); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+	h1 { font-size: 64px; margin: 0; letter-spacing: 2px; }
+	p { font-size: 26px; margin: 12px 0 0; opacity: 0.85; }
+	#clock { font-size: 40px; margin-top: 24px; font-variant-numeric: tabular-nums; }
+	.dot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffd34d; animation: bounce 2.4s ease-in-out infinite; }
+	@keyframes bounce { 0%, 100% { transform: translate(-260px, 120px); } 50% { transform: translate(260px, 120px); } }
+</style>
+</head>
+<body>
+	<h1>WebUI</h1>
+	<p>HTML rendered on a mesh with SetMaterialFromWebUI</p>
+	<div id="clock"></div>
+	<div class="dot"></div>
+	<script>
+		// Live clock, proves the page keeps running
+		const clock = document.getElementById("clock");
+		setInterval(() => { clock.textContent = new Date().toLocaleTimeString(); }, 250);
+	</script>
+</body>
+</html>
