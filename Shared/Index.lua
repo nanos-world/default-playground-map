@@ -1,30 +1,51 @@
 -- Playground map, shared by server and client
---
--- Every position comes from the level: each placeholder the package fills is an actor labelled
--- "<Name>_Spot", exported into Spots.lua by nanos-world-assets/Tools/Playground/export_spots.py
+-- Every position comes from the level: each placeholder the package fills is an actor labelled "<Name>_Spot", exported into Spots.lua by nanos-world-assets/Tools/Playground/export_spots.py
+
+-- Global table to store Playground related functions and variables, exported to other packages by the server
+Playground = Playground or {}
+
+-- Helper to load all files in a folder
+function RequireAllLuaFilesInFolder(folder)
+	local files = Package.GetFiles(folder, ".lua")
+	for _, file in pairs(files) do
+		Package.Require(file)
+	end
+end
 
 Package.Require("Spots.lua")
-
-Playground = Playground or {}
 
 -- The info stand panel (placeholders.py InfoStand): leans back INFO_TILT degrees, its face centre in the stand's local axes
 INFO_TILT = 35
 INFO_FACE = Vector(0, 0.8, 100.6)
+
 -- The wall plate's panel (playground_props.py WallPlate): upright, its face centre in the plate's local axes (the pivot is on the wall)
 WALL_PLATE_FACE = Vector(0, 5, 0)
+
+-- The Board placeholder (placeholders.py Board): a panel BOARD_WIDTH x BOARD_HEIGHT from BOARD_BASE_Z up, its front face at local +Y BOARD_FACE, all scaled by the spot
+BOARD_WIDTH = 400
+BOARD_HEIGHT = 300
+BOARD_BASE_Z = 60
+BOARD_FACE = 15
 
 -- A spot by name (the actor label without "_Spot"), nil when the level does not have it
 function Playground.Spot(name)
 	return SPOTS[name]
 end
 
--- All spots whose name starts with prefix, sorted by name so every machine walks them in the same order
--- Info stands and plates ("<Name>_Info", only text is written on them) are left out, so a group's stand is never taken for a member
+-- Info stands and plates only have text written on them, so a group's stand is never taken for one of its members
+local INFO_MESHES = {
+	InfoStand = true,
+	InfoPlate = true,
+	WallPlate = true,
+	TableSign = true
+}
+
+-- All spots whose name starts with prefix (info stands left out), sorted by name so every machine walks them in the same order
 function Playground.SpotsWith(prefix)
 	local names = {}
 
 	for name, spot in pairs(SPOTS) do
-		if (name:sub(1, #prefix) == prefix and spot.mesh ~= "InfoStand" and spot.mesh ~= "InfoPlate" and spot.mesh ~= "WallPlate" and spot.mesh ~= "TableSign") then
+		if (name:sub(1, #prefix) == prefix and not INFO_MESHES[spot.mesh]) then
 			names[#names + 1] = name
 		end
 	end
@@ -55,31 +76,24 @@ function Playground.FrontYaw(spot)
 	return spot.rotation.Yaw + 90
 end
 
--- Buttons of the hub's time and weather panel: row 1 sets the time of day, row 2 the weather
-SKY_BUTTONS = {
-	{ label = "Morning", row = 1, hours = 8, minutes = 0 },
-	{ label = "Noon", row = 1, hours = 12, minutes = 0 },
-	{ label = "Sunset", row = 1, hours = 18, minutes = 30 },
-	{ label = "Night", row = 1, hours = 23, minutes = 0 },
-	{ label = "Clear", row = 2, weather = WeatherType.ClearSkies },
-	{ label = "Partly", row = 2, weather = WeatherType.PartlyCloudy },
-	{ label = "Cloudy", row = 2, weather = WeatherType.Cloudy },
-	{ label = "Fog", row = 2, weather = WeatherType.Foggy },
-	{ label = "Rain", row = 2, weather = WeatherType.Rain },
-	{ label = "Storm", row = 2, weather = WeatherType.RainThunderstorm },
-	{ label = "Snow", row = 2, weather = WeatherType.Snow },
-}
-SKY_ROW_Z = { 125, 50 }                -- button heights on the panel face, from the panel's base
-SKY_BUTTON_STEP = 56
+-- TextRender's material reads the color as sRGB bytes back as linear, which lifts it (0.05 shows as 0.25 grey): pre-darkened, it shows as given
+function Playground.TextColor(color)
+	return Color(color.R ^ 2.2, color.G ^ 2.2, color.B ^ 2.2)
+end
 
--- Where a sky button sits on the panel (its face is the spot's local +Y side, 5 cm out)
+-- Where a sky button sits on the hub's time and weather panel (its face is the spot's local +Y side, 5 cm out)
 function Playground.SkyButtonLocation(panel, button)
 	local in_row, index = 0, 0
-	for _, b in ipairs(SKY_BUTTONS) do
-		if (b.row == button.row) then
+
+	for _, other in ipairs(HUB_SKY_BUTTONS) do
+		if (other.row == button.row) then
 			in_row = in_row + 1
-			if (b == button) then index = in_row end
+			if (other == button) then index = in_row end
 		end
 	end
-	return Playground.At(panel, (index - (in_row + 1) / 2) * SKY_BUTTON_STEP, 5, SKY_ROW_Z[button.row])
+
+	return Playground.At(panel, (index - (in_row + 1) / 2) * HUB_SKY_BUTTON_STEP, 5, HUB_SKY_ROW_Z[button.row])
 end
+
+-- Load all configs both sides read
+RequireAllLuaFilesInFolder("Shared/Config")

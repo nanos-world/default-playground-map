@@ -1,28 +1,27 @@
--- Sandbox zone: the tool stalls (a button per tool gives it, the tools hang on the back walls), the physics guns on their table, each sandbox entity in the
--- house, and what each stall shows (sandbox.py), when Sandbox runs
+-- Sandbox zone (sandbox.py), when Sandbox runs: the tool stalls (a button per tool gives it, the tools hang on the back walls), the physics guns on their table, each sandbox entity in the house, and what each stall shows
 
+local CUBE = "nanos-world::SM_Cube"
+local DARK = Color(0.03, 0.03, 0.03)
+local WEIGHT_TINT = Color(0.05, 0.05, 0.05)
+
+-- Sandbox entities are spawned this much above their spot's surface, to settle
 local ENTITY_LIFT = 20
-local TOOL_REACH = 300                 -- a tool gun left further than this from its bench, by nobody holding it, goes back on it at the next refill
+
+-- A tool gun left further than this from its bench, by nobody holding it, goes back on it at the next refill
+local TOOL_REACH = 300
+
+-- A tool hanging on a stall's back wall is put back once it is this far away (the remover took it)
+local HANGING_REACH = 50
+
+-- A painted prop of the stalls carried further than this is put back on the next refill
+local SHOW_REACH = 1500
+
+-- How much a balloon lifts, how far apart the house's three balloons' weights stand across the pad, and the shortest cord (the middle balloon's is 60 longer)
 local BALLOON_LIFT = 100000
-local BALLOON_SPREAD = 45              -- between the balloons' weights, across the pad
-local BALLOON_CORD = 110               -- the shortest cord, the middle balloon's is 60 longer
+local BALLOON_SPREAD = 45
+local BALLOON_CORD = 110
 
-local SKIP = {}
-
--- Tool guns lie on their side on their benches, the middle of the gun on the middle of the bench: per class, the centre of its mesh's bounds from its
--- pivot and its half thickness lying down (the bounds' Y, which a 90 roll turns upright); SK_ToolGun unless listed
-local TOOL_SHAPES = {
-	ToolGun = { centre = Vector(12.85, 0, 6.33), half = 4.5 },
-	PhysicsGun = { centre = Vector(15.92, 0, 5.81), half = 8.04 },
-	PukeGun = { centre = Vector(9.12, 0, 2.48), half = 3.07 },
-}
--- The physics guns' and puke guns' tables show two each, side by side and pointing opposite ways, this far from its middle each (the puke gun is bulkier)
-local PAIRED_APART = { PhysicsGun = 15, PukeGun = 20 }
--- Each puke gun of the pair starts on its own option (PukeGun.options ids)
-local PUKE_OPTIONS = { "watermelons", "balloons" }
-
--- What each spawner tool spawns, the sandbox entity itself, on a table behind its button ("Sandbox_Item_<tool>"), the light off
--- Each gets the table spot and returns what it spawned
+-- The spawner stall's items on their tables, lifted this much; a few need more than that
 local ITEM_LIFT = 2
 local ITEM_BALLOON_CORD = 70
 local ITEM_LAMP_LIFT = 46.6            -- SM_Lamp_Lantern hangs from its pivot: its foot this far under it
@@ -30,211 +29,47 @@ local ITEM_THRUSTER = { 0.5, 8 }       -- its scale, and how far its nose sticks
 local ITEM_TIRE = { 0.6, 51 }          -- its scale, and its radius at scale 1 (SM_Offroad_Tire stands, its axle along its Y towards the visitor)
 local ITEM_TIRE_CONFIG = { offset = Vector(0, -20, 0), direction = Vector(0, -1, 0) }
 
-local ITEMS = {
-	BalloonGun = function(class, spot)
-		-- Tied to a small weight on the table
-		local weight = Playground.Track(StaticMesh(spot.location + Vector(0, 0, 6), Rotator(), "nanos-world::SM_Cube"))
-		weight:SetScale(Vector(0.12, 0.12, 0.12))
-		weight:SetMaterialColorParameter("Tint", Color(0.05, 0.05, 0.05))
-		-- Balloon spawns 50 along the direction from the location it is given
-		return class(spot.location + Vector(0, 0, 12 + ITEM_BALLOON_CORD - 50), Rotator(), nil, nil, nil, Vector(0, 0, 6), Rotator(), Vector(0, 0, 1), weight, BALLOON_LIFT, ITEM_BALLOON_CORD, "nanos-world::SM_Balloon_01")
-	end,
-	ThrusterGun = function(class, spot)
-		local thruster = class(spot.location + Vector(0, 0, ITEM_THRUSTER[1] * ITEM_THRUSTER[2] + ITEM_LIFT), Rotator(-90, spot.rotation.Yaw, 0), nil, nil, nil, false)
-		thruster:SetScale(Vector(ITEM_THRUSTER[1], ITEM_THRUSTER[1], ITEM_THRUSTER[1]))
-		return thruster
-	end,
-	WheelGun = function(class, spot)
-		-- Standing on its tread, held so it doesn't roll off
-		local wheel = class(spot.location + Vector(0, 0, ITEM_TIRE[1] * ITEM_TIRE[2] + ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, false, false, ITEM_TIRE[1], ITEM_TIRE_CONFIG)
-		wheel:SetGravityEnabled(false)
-		return wheel
-	end,
-	TrailGun = function(class, spot)
-		-- On a small block on the table, pointing up
-		local block = Playground.Track(StaticMesh(spot.location, Rotator(0, spot.rotation.Yaw, 0), "nanos-world::SM_Cube"))
-		block:SetScale(Vector(0.2, 0.2, 0.2))
-		block:SetMaterialColorParameter("Tint", Color(0.05, 0.05, 0.05))
-		local up = Vector(0, 0, 1)
-		return class(spot.location + Vector(0, 0, 20), up:ToOrientationRotator(), Vector(0, 0, 50), Rotator(90, 0, 0), up, block)
-	end,
-	LightGun = function(class, spot)
-		local lamp = class(spot.location + Vector(0, 0, ITEM_LAMP_LIFT + ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, nil, "Lantern", Color(1, 0.75, 0.45))
-		lamp:Deactivate()
-		return lamp
-	end,
-	ButtonGun = function(class, spot)
-		return class(spot.location + Vector(0, 0, ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, nil, true, "PushButton")
-	end,
-}
--- The class each tool spawns
-local ITEM_CLASSES = { BalloonGun = "Balloon", ThrusterGun = "Thruster", WheelGun = "Wheel", TrailGun = "Trail", LightGun = "Lamp", ButtonGun = "LogicButton" }
-
--- A tool hanging on a stall's back wall at its marker (its local +Y out of the wall): upright, its side to the visitor, muzzle to the visitor's left, out of
--- reach of physics; brought back if the remover takes it
-local function HangTool(class, name, spot)
-	local shape = TOOL_SHAPES[name] or TOOL_SHAPES.ToolGun
-	local rotation = Rotator(0, spot.rotation.Yaw + 180, 0)
-	local out = spot.rotation:RotateVector(Vector(0, shape.half + 1, 0))
-	local location = spot.location + out - rotation:RotateVector(shape.centre)
-	Playground.Slot(function()
-		local tool = class(location, rotation)
-		tool:SetGravityEnabled(false)
-		tool:SetPickable(false)
-		tool:SetCollision(CollisionType.NoCollision)
-		return tool
-	end, 50)
-end
-
--- Gives a fresh tool to whoever pressed a stall's button, in their hands; like the spawn menu, what they held goes
-local GIVE_COOLDOWN = 1000
-
-local function GiveTool(class, player, causer)
-	local character = (causer and causer:IsValid() and causer:IsA(Character)) and causer or (player and player:GetControlledCharacter())
-	if (not character or not character:IsValid() or not character:IsA(Character)) then return end
-	local held = character:GetPicked()
-	if (held and held:IsValid()) then held:Destroy() end
-	character:PickUp(class(character:GetLocation(), Rotator()))
-end
-
--- What the stalls show (sandbox.py STALL_SHOW), at markers under the awning (hooks) or on the floor
--- Constrainers: a cube on a rope, a ball on an elastic
+-- Constrainers' show: a cube on a rope, a ball on an elastic; spawners': a rope light hanging from the awning on a short cord, off, and a sandbox button on a table wired to it
 local SHOW_ROPE = 90
 local SHOW_SPRING = 70
 local SHOW_CUBE = 0.35
-local SHOW_TINTS = { Color(0.9, 0.35, 0.05), Color(0.95, 0.8, 0.1), Color(0.1, 0.55, 0.9), Color(0.85, 0.15, 0.45), Color(0.2, 0.75, 0.3) }
--- Spawners: a rope light hanging from the awning on a short cord, off, and a sandbox button on a table wired to it (a visible wire) that switches it
 local SHOW_LAMP_CORD = 35
-local show_lamps = {}
--- Tools: a painted cube and a giant resized melon, each on a table (asset, scale, lift: its pivot above the table)
-local SHOW_BIG = {
-	{ "nanos-world::SM_Cube", 0.55, 28 },
-}
-local SHOW_GIANT = { "nanos-world::SM_Fruit_Watermelon_01", 3, 2 }
 
-local function Painted(location, rotation, asset, scale, tint)
-	return Playground.Slot(function()
-		local prop = Prop(location, rotation, asset, CollisionType.Normal, true, GrabMode.Enabled)
-		prop:SetScale(Vector(scale, scale, scale))
-		if (tint) then prop:SetMaterialColorParameter("Tint", tint) end
-		return prop
-	end, 1500)
-end
-
--- A cable from a fixed point (a cable not attached at its start holds there) to the top of an entity (SM_Cube / SM_Ball_VR unscaled)
-local function Hang(from, entity, top, length, soft, stiffness, damping)
-	local cable = Playground.Track(Cable(from, true))
-	cable:SetLinearLimits(ConstraintMotion.Limited, ConstraintMotion.Limited, ConstraintMotion.Limited, length, 0.25, soft, stiffness, damping)
-	cable:SetCableSettings(length * 0.75, 10, 1)
-	cable:SetRenderingSettings(3, 4, 1)
-	cable:AttachEndTo(entity, Vector(0, 0, top))
-	return cable
-end
-
-local SHOW = {
-	Rope = function(spot, index)
-		local cube = Playground.Track(Prop(spot.location - Vector(0, 0, SHOW_ROPE + 50 * SHOW_CUBE), Rotator(0, 20 * index, 0), "nanos-world::SM_Cube", CollisionType.Normal, true, GrabMode.Enabled))
-		cube:SetScale(Vector(SHOW_CUBE, SHOW_CUBE, SHOW_CUBE))
-		cube:SetMaterialColorParameter("Tint", SHOW_TINTS[index % #SHOW_TINTS + 1])
-		Hang(spot.location, cube, 50, SHOW_ROPE, true, 1000, 10)
-	end,
-	Spring = function(spot, index)
-		local ball = Playground.Track(Prop(spot.location - Vector(0, 0, SHOW_SPRING + 70 * 0.3), Rotator(), "nanos-world::SM_Ball_VR", CollisionType.Normal, true, GrabMode.Enabled))
-		ball:SetScale(Vector(0.3, 0.3, 0.3))
-		Hang(spot.location, ball, 70, SHOW_SPRING, true, 40, 1)
-	end,
-	Lamp = function(spot)
-		local class = Playground.FindClass("RopeLight", { Prop })
-		if (not class) then return end
-		local hook = Playground.Track(StaticMesh(spot.location, Rotator(), "nanos-world::SM_Cube"))
-		hook:SetScale(Vector(0.03, 0.03, 0.03))
-		hook:SetMaterialColorParameter("Tint", Color(0.03, 0.03, 0.03))
-		local lamp = Playground.Track(class(spot.location - Vector(0, 0, SHOW_LAMP_CORD), Vector(), Rotator(), Vector(0, 0, -1), hook, SHOW_LAMP_CORD))
-		lamp:Deactivate()
-		show_lamps[#show_lamps + 1] = lamp
-	end,
-	Button = function(spot)
-		local button = Playground.Button(spot.location, Rotator(0, spot.rotation.Yaw, 0), "light on", "light off", function() end, function() end, true)
-		for _, lamp in ipairs(show_lamps) do
-			if (lamp:IsValid()) then button:LinkEntity(lamp, true, Color.BLACK) end
-		end
-	end,
-	Big = function(spot, index)
-		local big = SHOW_BIG[index % #SHOW_BIG + 1]
-		Painted(spot.location + Vector(0, 0, big[3] + 2), Rotator(0, 15 * index, 0), big[1], big[2], SHOW_TINTS[(index + 2) % #SHOW_TINTS + 1])
-	end,
-	Giant = function(spot)
-		Painted(spot.location + Vector(0, 0, SHOW_GIANT[3]), Rotator(0, 30, 0), SHOW_GIANT[1], SHOW_GIANT[2])
-	end,
-}
-
-local function LyingTool(spot, name, yaw, offset)
-	local shape = TOOL_SHAPES[name] or TOOL_SHAPES.ToolGun
-	local rotation = Rotator(0, yaw, 90)
-	return Playground.Top(spot, shape.half + 0.5) + (offset or Vector()) - rotation:RotateVector(shape.centre), rotation
-end
-
--- Entities stand right on their spot's surface; any other is spawned this much above it, to settle
-local ON_SURFACE = { TV = true, Door = true }
-
--- The trailer the house's button plays on its TV, and how long (ms) before it turns itself off
-local TRAILER_URL = "https://www.youtube.com/watch?v=fVYYIg88VzU"
-local TRAILER_DURATION = 120000
+-- Gives a fresh tool to whoever pressed a stall's button no sooner than this (ms) after the last one
+local GIVE_COOLDOWN = 1000
 
 -- The house's TV hangs this high above the floor (sandbox.py TV), its speakers stand this far out from the wall under it
 local TV_HEIGHT = 110
 local SPEAKER_OUT = 12
+
 -- The house's TV and the CCTV's monitor hang (on the wall, on the pole): Sandbox's hanging model, with gravity off
 local HANGING_TV = "nanos-world::SM_TV_Hanging"
 
 -- The CCTV's camera tilts this much down at the path; its spot is a marker, which only carries the yaw
 local CCTV_CAMERA_PITCH = -30
--- The house's lamp by the door: warm and dim, on a short cable from a bracket out of the wall (its length, out of the wall), lit by the switch under it
-local LAMP_COLOR = Color(1, 0.75, 0.45)
-local LAMP_INTENSITY = 3
--- Its bulb's glow, its color times this (Sandbox's rope lights use 100)
-local LAMP_GLOW = 8
+
+-- The house's lamp hangs on a cable this long from a bracket this far out of the wall
 local LAMP_CABLE = 18
 local LAMP_BRACKET = 14
--- The Sandbox Sign by the house door
-local SIGN_TEXT = "welcome to the\nsandbox house"
--- The picture in the house's PhotoFrame
-local PHOTO_FRAME_IMAGE = "data:image/jpeg;base64,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"
+
 -- Wall switches (sandbox.py markers on the wall face, their local +Y out of it) at this size, like the street lamps'
 local SWITCH_SCALE = 1.4
 
--- The house's TV and lamp, the last ones spawned (their slots bring them back if they are destroyed)
-local house_tv, house_lamp = nil, nil
+-- Entities that stand right on their spot's surface instead of ENTITY_LIFT above it
+local ON_SURFACE = {
+	TV = true,
+	Door = true
+}
 
--- Lights the house's lamp or puts it out: its Light and its bulb's glow, as Sandbox's RopeLight does
-local function SetLampLit(is_on)
-	if (not house_lamp or not house_lamp:IsValid()) then return end
-	local light = house_lamp:GetValue("Light")
-	if (not light or not light:IsValid()) then return end
-	light:SetVisibility(is_on)
-	house_lamp:SetMaterialColorParameter("Emissive", is_on and LAMP_COLOR * LAMP_GLOW or Color.BLACK)
-end
-
--- A switch (or another kind of LogicButton) on the wall at a sandbox.py marker: its plate faces its local +Z, rolled up and turned to face out of the wall
-local function WallSwitch(spot, label_on, label_off, on_activate, on_deactivate, is_on, kind)
-	return Playground.Button(spot.location, Rotator(0, spot.rotation.Yaw + 180, -90), label_on, label_off, on_activate, on_deactivate, true, kind or "Switch", is_on, SWITCH_SCALE)
-end
-
--- Turns a Sandbox TV (or a CCTV's monitor) into the hanging model, floating where it is
-local function HangTV(tv)
-	tv:SetMesh(HANGING_TV)
-	tv:SetGravityEnabled(false)
-	tv:SetValue("Model", HANGING_TV, true)
-	return tv
-end
+-- The breakable melons in a square pyramid (the melon is a 27 x 28 ball): 3 x 3 resting on the pedestal, 2 x 2 in the pockets between them, one on top
+local MELON_STEP = 27.5
+local MELON_BASE_Z = -5.5
 
 -- Entities shown as several copies, at these offsets on their spot
 local COPIES = {
-	-- A square pyramid (the melon is a 27 x 28 ball): 3 x 3 resting on the pedestal, 2 x 2 in the pockets between them, one on top
-	Breakable = {},
+	Breakable = {}
 }
-local MELON_STEP = 27.5
-local MELON_BASE_Z = -5.5
+
 for layer, count in ipairs({ 3, 2, 1 }) do
 	for i = 1, count do
 		for j = 1, count do
@@ -245,45 +80,210 @@ for layer, count in ipairs({ 3, 2, 1 }) do
 	end
 end
 
--- The breakable melons standing in the pyramid: it falls together, and is cleared a while after one breaks
-local melon_pyramid = {}
+-- The house's TV and lamp, the last ones spawned (their slots bring them back if they are destroyed)
+local house_tv, house_lamp = nil, nil
 
--- Spawners of the entities that need more than (location, rotation): each gets the surface of its spot, the rotation a visitor in front of it looks
--- along, its offset among COPIES and the spot itself
+-- The spawner stall's rope lights, wired to its button
+local show_lamps = {}
+
+-- A helper mesh goes with the entity it was made for
+local function DestroyWith(entity, helper)
+	entity:Subscribe("Destroy", function()
+		if (helper:IsValid()) then helper:Destroy() end
+	end)
+
+	return entity
+end
+
+-- What each spawner tool spawns, the sandbox entity itself, on a table behind its button, the light off: each gets the class and the table spot and returns what it spawned
+local ITEMS = {
+	-- Tied to a small weight on the table; Balloon spawns 50 along the direction from the location it is given
+	BalloonGun = function(class, spot)
+		local weight = Playground.Fixed(spot.location + Vector(0, 0, 6), Rotator(), CUBE, Vector(0.12, 0.12, 0.12), WEIGHT_TINT)
+		local balloon = class(spot.location + Vector(0, 0, 12 + ITEM_BALLOON_CORD - 50), Rotator(), nil, nil, nil, Vector(0, 0, 6), Rotator(), Vector(0, 0, 1), weight, BALLOON_LIFT, ITEM_BALLOON_CORD, "nanos-world::SM_Balloon_01")
+
+		return DestroyWith(balloon, weight)
+	end,
+	ThrusterGun = function(class, spot)
+		local thruster = class(spot.location + Vector(0, 0, ITEM_THRUSTER[1] * ITEM_THRUSTER[2] + ITEM_LIFT), Rotator(-90, spot.rotation.Yaw, 0), nil, nil, nil, false)
+		thruster:SetScale(Vector(ITEM_THRUSTER[1], ITEM_THRUSTER[1], ITEM_THRUSTER[1]))
+
+		return thruster
+	end,
+	-- Standing on its tread, held so it doesn't roll off
+	WheelGun = function(class, spot)
+		local wheel = class(spot.location + Vector(0, 0, ITEM_TIRE[1] * ITEM_TIRE[2] + ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, false, false, ITEM_TIRE[1], ITEM_TIRE_CONFIG)
+		wheel:SetGravityEnabled(false)
+
+		return wheel
+	end,
+	-- On a small block on the table, pointing up
+	TrailGun = function(class, spot)
+		local block = Playground.Fixed(spot.location, Rotator(0, spot.rotation.Yaw, 0), CUBE, Vector(0.2, 0.2, 0.2), WEIGHT_TINT)
+		local up = Vector(0, 0, 1)
+		local trail = class(spot.location + Vector(0, 0, 20), up:ToOrientationRotator(), Vector(0, 0, 50), Rotator(90, 0, 0), up, block)
+
+		return DestroyWith(trail, block)
+	end,
+	LightGun = function(class, spot)
+		local lamp = class(spot.location + Vector(0, 0, ITEM_LAMP_LIFT + ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, nil, "Lantern", SANDBOX_HOUSE_LAMP.color)
+		lamp:Deactivate()
+
+		return lamp
+	end,
+	ButtonGun = function(class, spot)
+		return class(spot.location + Vector(0, 0, ITEM_LIFT), Rotator(0, spot.rotation.Yaw, 0), nil, nil, nil, true, "PushButton")
+	end,
+}
+
+-- A tool hanging on a stall's back wall at its marker (its local +Y out of the wall): upright, its side to the visitor, muzzle to the visitor's left, out of reach of physics; brought back if the remover takes it
+local function HangTool(class, name, spot)
+	local shape = LYING_SHAPES[name] or LYING_SHAPES.ToolGun
+	local rotation = Rotator(0, spot.rotation.Yaw + 180, 0)
+	local out = spot.rotation:RotateVector(Vector(0, shape.half + 1, 0))
+	local location = spot.location + out - rotation:RotateVector(shape.centre)
+
+	Playground.Slot(function()
+		local tool = class(location, rotation)
+		tool:SetGravityEnabled(false)
+		tool:SetPickable(false)
+		tool:SetCollision(CollisionType.NoCollision)
+
+		return tool
+	end, HANGING_REACH)
+end
+
+-- Gives a fresh tool to whoever pressed a stall's button, in their hands; like the spawn menu, what they held goes
+local function GiveTool(class, player, causer)
+	local character = (causer and causer:IsValid() and causer:IsA(Character)) and causer or (player and player:GetControlledCharacter())
+	if (not character or not character:IsValid() or not character:IsA(Character)) then return end
+
+	local held = character:GetPicked()
+	if (held and held:IsValid()) then held:Destroy() end
+
+	character:PickUp(class(character:GetLocation(), Rotator()))
+end
+
+-- A cable from a fixed point (a cable not attached at its start holds there) to the top of an entity (SM_Cube / SM_Ball_VR unscaled)
+local function Hang(from, entity, top, length, soft, stiffness, damping)
+	local cable = Playground.Track(Cable(from, true))
+	cable:SetLinearLimits(ConstraintMotion.Limited, ConstraintMotion.Limited, ConstraintMotion.Limited, length, 0.25, soft, stiffness, damping)
+	cable:SetCableSettings(length * 0.75, 10, 1)
+	cable:SetRenderingSettings(3, 4, 1)
+	cable:AttachEndTo(entity, Vector(0, 0, top))
+
+	return cable
+end
+
+-- What the stalls show (sandbox.py STALL_SHOW), at markers under the awning (hooks) or on the floor, by kind: each gets its spot and its index among them
+local SHOW = {
+	Rope = function(spot, index)
+		local cube = Playground.Track(Prop(spot.location - Vector(0, 0, SHOW_ROPE + 50 * SHOW_CUBE), Rotator(0, 20 * index, 0), CUBE, CollisionType.Normal, true, GrabMode.Enabled))
+		cube:SetScale(Vector(SHOW_CUBE, SHOW_CUBE, SHOW_CUBE))
+		cube:SetMaterialColorParameter("Tint", SANDBOX_SHOW_TINTS[index % #SANDBOX_SHOW_TINTS + 1])
+
+		Hang(spot.location, cube, 50, SHOW_ROPE, true, 1000, 10)
+	end,
+	Spring = function(spot, index)
+		local ball = Playground.Track(Prop(spot.location - Vector(0, 0, SHOW_SPRING + 70 * 0.3), Rotator(), "nanos-world::SM_Ball_VR", CollisionType.Normal, true, GrabMode.Enabled))
+		ball:SetScale(Vector(0.3, 0.3, 0.3))
+
+		Hang(spot.location, ball, 70, SHOW_SPRING, true, 40, 1)
+	end,
+	Lamp = function(spot)
+		local hook = Playground.Fixed(spot.location, Rotator(), CUBE, Vector(0.03, 0.03, 0.03), DARK)
+		local lamp = Playground.Track(RopeLight(spot.location - Vector(0, 0, SHOW_LAMP_CORD), Vector(), Rotator(), Vector(0, 0, -1), hook, SHOW_LAMP_CORD))
+		lamp:Deactivate()
+
+		show_lamps[#show_lamps + 1] = lamp
+	end,
+	Button = function(spot)
+		local button = Playground.Button(spot.location, Rotator(0, spot.rotation.Yaw, 0), "light on", "light off")
+
+		for _, lamp in ipairs(show_lamps) do
+			if (lamp:IsValid()) then button:LinkEntity(lamp, true, Color.BLACK) end
+		end
+	end,
+	Big = function(spot, index)
+		local big = SANDBOX_SHOW_BIG[index % #SANDBOX_SHOW_BIG + 1]
+
+		Playground.PropSlot(spot.location + Vector(0, 0, big.lift + 2), Rotator(0, 15 * index, 0), big.asset, {
+			scale = Vector(big.scale, big.scale, big.scale),
+			tint = SANDBOX_SHOW_TINTS[(index + 2) % #SANDBOX_SHOW_TINTS + 1],
+			reach = SHOW_REACH
+		})
+	end,
+	Giant = function(spot)
+		local giant = SANDBOX_SHOW_GIANT
+
+		Playground.PropSlot(spot.location + Vector(0, 0, giant.lift), Rotator(0, 30, 0), giant.asset, {
+			scale = Vector(giant.scale, giant.scale, giant.scale),
+			reach = SHOW_REACH
+		})
+	end,
+}
+
+-- Lights the house's lamp or puts it out: its Light and its bulb's glow, as Sandbox's RopeLight does
+local function SetLampLit(is_on)
+	if (not house_lamp or not house_lamp:IsValid()) then return end
+
+	local light = house_lamp:GetValue("Light")
+	if (not light or not light:IsValid()) then return end
+
+	light:SetVisibility(is_on)
+	house_lamp:SetMaterialColorParameter("Emissive", is_on and SANDBOX_HOUSE_LAMP.color * SANDBOX_HOUSE_LAMP.glow or Color.BLACK)
+end
+
+-- A switch (or another kind of LogicButton) on the wall at a sandbox.py marker: its plate faces its local +Z, rolled up and turned to face out of the wall
+local function WallSwitch(spot, label_on, label_off, on_activate, on_deactivate, is_on, kind)
+	return Playground.Button(spot.location, Rotator(0, spot.rotation.Yaw + 180, -90), label_on, label_off, on_activate, on_deactivate, { kind = kind or "Switch", is_on = is_on, scale = SWITCH_SCALE })
+end
+
+-- Turns a Sandbox TV (or a CCTV's monitor) into the hanging model, floating where it is
+local function HangTV(tv)
+	tv:SetMesh(HANGING_TV)
+	tv:SetGravityEnabled(false)
+	tv:SetValue("Model", HANGING_TV, true)
+
+	return tv
+end
+
+-- Spawners of the entities that need more than (location, rotation): each gets the surface of its spot, the rotation a visitor in front of it looks along, its offset among COPIES and the spot itself
 local CUSTOM_SPAWN = {
 	-- The house's lamp: hangs on a short cable from a dark bracket out of the wall by the door (its spot on the wall's face), warm and dim
 	RopeLight = function(class, location, _, _, spot)
 		local out = spot.rotation:RotateVector(Vector(0, 1, 0))
-		local bracket = StaticMesh(location + out * (LAMP_BRACKET / 2), spot.rotation, "nanos-world::SM_Cube")
-		bracket:SetScale(Vector(0.03, LAMP_BRACKET / 100, 0.03))
-		bracket:SetMaterialColorParameter("Tint", Color(0.03, 0.03, 0.03))
+		local bracket = Playground.Fixed(location + out * (LAMP_BRACKET / 2), spot.rotation, CUBE, Vector(0.03, LAMP_BRACKET / 100, 0.03), DARK)
 		local tip = location + out * LAMP_BRACKET
-		house_lamp = class(tip - Vector(0, 0, LAMP_CABLE), Vector(), Rotator(), Vector(0, 0, -1), bracket, LAMP_CABLE)
-		house_lamp:Subscribe("Destroy", function() if (bracket:IsValid()) then bracket:Destroy() end end)
+
+		house_lamp = DestroyWith(class(tip - Vector(0, 0, LAMP_CABLE), Vector(), Rotator(), Vector(0, 0, -1), bracket, LAMP_CABLE), bracket)
+
 		local light = house_lamp:GetValue("Light")
 		if (light and light:IsValid()) then
-			light:SetColor(LAMP_COLOR)
-			light:SetIntensity(LAMP_INTENSITY)
+			light:SetColor(SANDBOX_HOUSE_LAMP.color)
+			light:SetIntensity(SANDBOX_HOUSE_LAMP.intensity)
 		end
+
 		SetLampLit(true)
+
 		return house_lamp
 	end,
-	-- The pyramid breaks as one: the first melon hit splits and lets the rest tumble, so it is wired here and Sandbox's own breaking is kept off it
+	-- A melon of the pyramid, turned with it so it lies along the row; Sandbox breaks each one by itself
 	-- Every melon has physics; the bottom layer has a strong angular damping, so the round melons slide instead of rolling apart under the ones on top
 	Breakable = function(_, location, rotation, offset)
-		location = location + Vector(0, 0, ENTITY_LIFT) + offset
-		-- Turned with the pyramid, so each melon lies along the row
-		local melon = Prop(location, rotation + Rotator(0, 90, 0), "nanos-world::SM_Fruit_Watermelon_01", CollisionType.Normal, true)
-		melon_pyramid[#melon_pyramid + 1] = melon
+		local melon = Prop(location + Vector(0, 0, ENTITY_LIFT) + offset, rotation + Rotator(0, 90, 0), "nanos-world::SM_Fruit_Watermelon_01", CollisionType.Normal, true)
+
 		if (offset.Z == MELON_BASE_Z) then
 			melon:SetPhysicsDamping(0.01, 50)
 		end
+
 		return melon
 	end,
 	-- The monitor hangs on the pole at the gate; its camera, the Housing one, goes on the pole near its top ("Sandbox_CCTVCamera", tilted down at the path)
 	CCTV = function(class, location, rotation)
 		local tv = HangTV(class(location, rotation))
 		local camera, mount = tv.camera, Playground.Spot("Sandbox_CCTVCamera")
+
 		if (camera and camera:IsValid() and mount) then
 			tv:SetCamera(nil, "nanos-world::SM_Camera_Housing")
 			camera:SetLocation(mount.location)
@@ -292,26 +292,31 @@ local CUSTOM_SPAWN = {
 
 		-- The cable starts hidden here, it can be shown again from the Context Menu
 		tv:SetCableVisible(nil, false)
+
 		return tv
 	end,
 	-- On the wall; Sandbox puts its speakers either side at its own height, so they go down on the floor, a little out from the wall, upright
 	TV = function(class, location, rotation, _, spot)
 		house_tv = HangTV(class(location, rotation))
 		local out = spot.rotation:RotateVector(Vector(0, -SPEAKER_OUT, 0))
+
 		for _, key in ipairs({ "SoundBox_01", "SoundBox_02" }) do
 			local speaker = house_tv:GetValue(key)
+
 			if (speaker and speaker:IsValid()) then
 				local at = speaker:GetLocation()
 				speaker:SetLocation(Vector(at.X, at.Y, location.Z - TV_HEIGHT) + out)
 				speaker:SetRotation(Rotator(0, speaker:GetRotation().Yaw, 0))
 			end
 		end
+
 		return house_tv
 	end,
 	-- A bare 102 cm panel with no stand, hung flat on the wall with gravity off; it faces its spot's local +Y, as the museum's do
 	PhotoFrame = function(class, _, _, _, spot)
-		local frame = class(spot.location, Rotator(0, spot.rotation.Yaw - 90, 0), nil, nil, nil, nil, PHOTO_FRAME_IMAGE)
+		local frame = class(spot.location, Rotator(0, spot.rotation.Yaw - 90, 0), nil, nil, nil, nil, SANDBOX_PHOTO_FRAME_IMAGE)
 		frame:SetGravityEnabled(false)
+
 		return frame
 	end,
 	-- Lying on the side table, switched off
@@ -322,125 +327,139 @@ local CUSTOM_SPAWN = {
 	Sign = function(class, location, rotation)
 		local sign = class(location + Vector(0, 0, 12), rotation)
 		sign:SetGravityEnabled(false)
+
 		local text = sign:GetValue("TextRender")
-		if (text and text:IsValid()) then text:SetText(SIGN_TEXT) end
+		if (text and text:IsValid()) then text:SetText(SANDBOX_SIGN_TEXT) end
+
 		return sign
 	end,
-	-- Three balloons, each tied to its own weight on the pad: tied to one point they all float to the same spot above it and pop on each other (Balloon pops on
-	-- any hit over 1000), so the weights stand apart and the cords differ in length, and each balloon spawns right where its cord holds it
+	-- Three balloons, each tied to its own weight on the pad: tied to one point they all float to the same spot above it and pop on each other (Balloon pops on any hit over 1000), so the weights stand apart and the cords differ in length, and each balloon spawns right where its cord holds it
 	-- If any of them pops, the set goes, weights included, so the slot (which follows the first) brings back all three instead of leaving two untethered
 	Balloon = function(class, location, rotation)
 		local weights, balloons = {}, {}
 		local across = Rotator(0, rotation.Yaw, 0):GetRightVector()
+
 		for i = 1, 3 do
 			local at = location + across * ((i - 2) * BALLOON_SPREAD)
-			local weight = StaticMesh(at, Rotator(), "nanos-world::SM_Cube")
-			weight:SetScale(Vector(0.2, 0.2, 0.12))
-			weights[i] = weight
+			weights[i] = Playground.Fixed(at, Rotator(), CUBE, Vector(0.2, 0.2, 0.12))
+
 			-- Balloon spawns 50 along the direction from the location it is given
 			local length = BALLOON_CORD + (i % 2) * 60
-			local balloon = class(at + Vector(0, 0, length - 50), Rotator(), nil, nil, nil, Vector(), Rotator(), Vector(0, 0, 1), weight, BALLOON_LIFT, length, "nanos-world::SM_Balloon_0" .. i)
-			balloons[i] = balloon
-			Playground.Track(balloon)
+			balloons[i] = Playground.Track(class(at + Vector(0, 0, length - 50), Rotator(), nil, nil, nil, Vector(), Rotator(), Vector(0, 0, 1), weights[i], BALLOON_LIFT, length, "nanos-world::SM_Balloon_0" .. i))
 		end
+
 		local gone = false
+
 		for _, balloon in ipairs(balloons) do
 			balloon:Subscribe("Destroy", function()
 				-- Once: each Destroy below fires this again
 				if (gone) then return end
 				gone = true
+
 				for _, other in ipairs(balloons) do
 					if (other ~= balloon and other:IsValid()) then other:Destroy() end
 				end
+
 				for _, weight in ipairs(weights) do
 					if (weight:IsValid()) then weight:Destroy() end
 				end
 			end)
 		end
+
 		return balloons[1]
 	end,
 }
 
-Playground.Setup("Sandbox", function()
-	if (not Playground.HasSandbox()) then
-		Console.Log("Playground: Sandbox not loaded, the tool benches stay empty")
-		return
-	end
-
+-- The tool benches ("Sandbox_Tool_<class>"): the guns lying on them, two on the paired ones
+local function SpawnBenchTools()
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Tool_")) do
 		local name = entry.name:sub(#"Sandbox_Tool_" + 1)
 		local class = Playground.FindClass(name)
+		local apart = SANDBOX_PAIRED_APART[name]
 
-		if (class and PAIRED_APART[name]) then
+		if (not class) then
+			Console.Warn("Playground: sandbox tool '%s' not found", name)
+		elseif (apart) then
 			-- Two on the pedestal, side by side across it, one pointing each way
 			local yaw = Playground.FrontYaw(entry.spot) + 90
 			local across = Rotator(0, yaw, 0):GetRightVector()
+
 			for k, side in ipairs({ -1, 1 }) do
-				local location, rotation = LyingTool(entry.spot, name, yaw + (side > 0 and 180 or 0), across * side * PAIRED_APART[name])
+				local location, rotation = Playground.LyingOnSide(name, Playground.Top(entry.spot, 0) + across * side * apart, Rotator(0, yaw + (side > 0 and 180 or 0), 90), 0.5)
+
 				Playground.Slot(function()
 					local tool = class(location, rotation)
-					if (name == "PukeGun") then tool:SetValue("Option", PUKE_OPTIONS[k], true) end
+					if (name == "PukeGun") then tool:SetValue("Option", SANDBOX_PUKE_OPTIONS[k], true) end
 					return tool
 				end, TOOL_REACH)
 			end
-		elseif (class) then
-			-- Lying on its side along the bench, muzzle to the visitor's left, centred on it
-			local location, rotation = LyingTool(entry.spot, name, Playground.FrontYaw(entry.spot) + 90)
-			Playground.Slot(function() return class(location, rotation) end, TOOL_REACH)
 		else
-			Console.Warn("Playground: sandbox tool '%s' not found", name)
+			-- Lying on its side along the bench, muzzle to the visitor's left, centred on it
+			local location, rotation = Playground.LyingOnSide(name, Playground.Top(entry.spot, 0), Rotator(0, Playground.FrontYaw(entry.spot) + 90, 90), 0.5)
+			Playground.Slot(function() return class(location, rotation) end, TOOL_REACH)
 		end
 	end
+end
 
-	-- The stalls: each tool on its back wall, its button on the counter
+-- The stalls: each tool on its back wall ("Sandbox_Wall_<class>") and a button on the counter giving it ("Sandbox_Give_<class>")
+local function SpawnStalls()
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Wall_")) do
 		local name = entry.name:sub(#"Sandbox_Wall_" + 1)
 		local class = Playground.FindClass(name)
 		if (class) then HangTool(class, name, entry.spot) end
 	end
 
-	-- The spawner stall's tables: what each tool spawns
-	local items = {}
-	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Item_")) do items[entry.name:sub(#"Sandbox_Item_" + 1)] = entry.spot end
-	for _, name in ipairs({ "BalloonGun", "ThrusterGun", "WheelGun", "TrailGun", "LightGun", "ButtonGun" }) do
-		local class = Playground.FindClass(ITEM_CLASSES[name], { Prop })
-		if (class and items[name]) then
-			Playground.Track(ITEMS[name](class, items[name]))
-		end
-	end
-
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Give_")) do
 		local name = entry.name:sub(#"Sandbox_Give_" + 1)
 		local class = Playground.FindClass(name)
+
 		if (class) then
 			local label = "get " .. name:gsub("(%l)(%u)", "%1 %2"):lower()
-			Playground.Button(entry.spot.location, Rotator(0, entry.spot.rotation.Yaw, 0), label, label, function(player, causer) GiveTool(class, player, causer) end, nil, false, "PushButton", nil, nil, GIVE_COOLDOWN)
+			Playground.Button(entry.spot.location, Rotator(0, entry.spot.rotation.Yaw, 0), label, label, function(player, causer) GiveTool(class, player, causer) end, nil, { kind = "PushButton", switchable = false, cooldown = GIVE_COOLDOWN })
 		else
 			Console.Warn("Playground: sandbox tool '%s' not found", name)
 		end
 	end
+end
 
-	-- What each stall shows: "Sandbox_Show<Kind><Stall><index>"; buttons last, wired to the lamps spawned before them
-	local shows = Playground.SpotsWith("Sandbox_Show")
-	for _, last in ipairs({ false, true }) do
-		for index, entry in ipairs(shows) do
-			local kind = entry.name:match("^Sandbox_Show(%u%l+)")
-			if (SHOW[kind] and (kind == "Button") == last) then SHOW[kind](entry.spot, index) end
+-- The spawner stall's tables: what each tool spawns
+local function SpawnSpawnerItems()
+	local tables = {}
+	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Item_")) do tables[entry.name:sub(#"Sandbox_Item_" + 1)] = entry.spot end
+
+	for _, item in ipairs(SANDBOX_SPAWNER_ITEMS) do
+		local class, spot = Playground.FindClass(item.class, { Prop }), tables[item.tool]
+
+		if (class and spot and ITEMS[item.tool]) then
+			Playground.Slot(function() return ITEMS[item.tool](class, spot) end)
 		end
 	end
+end
 
+-- What each stall shows: "Sandbox_Show<Kind><Stall><index>"; buttons last, wired to the lamps spawned before them
+local function SpawnShows()
+	local shows = Playground.SpotsWith("Sandbox_Show")
+
+	for _, buttons in ipairs({ false, true }) do
+		for index, entry in ipairs(shows) do
+			local kind = entry.name:match("^Sandbox_Show(%u%l+)")
+			if (SHOW[kind] and (kind == "Button") == buttons) then SHOW[kind](entry.spot, index) end
+		end
+	end
+end
+
+-- Each sandbox entity of the house ("Sandbox_Ent_<class>"), spawned like the spawn menu does: rotation is the look direction of a visitor facing the spot (from its -Y)
+local function SpawnHouseEntities()
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Ent_")) do
 		local name = entry.name:sub(#"Sandbox_Ent_" + 1)
 		local class, custom = Playground.FindClass(name), CUSTOM_SPAWN[name]
 
-		if (SKIP[name]) then
-			-- Nothing to show
-		elseif (class or custom) then
+		if (class or custom) then
 			-- A marker (no mesh) is the surface itself, a placeholder its top
 			local surface = entry.spot.mesh == "" and entry.spot.location or Playground.Top(entry.spot, 0)
-			-- Spawned like the spawn menu does: rotation = the look direction of a visitor facing the spot (from its -Y)
 			local rotation = Rotator(0, entry.spot.rotation.Yaw + 90, 0)
 			local location = ON_SURFACE[name] and surface or surface + Vector(0, 0, ENTITY_LIFT)
+
 			for _, offset in ipairs(COPIES[name] or { Vector() }) do
 				Playground.Slot(function()
 					if (custom) then return custom(class, surface, rotation, offset, entry.spot) end
@@ -451,32 +470,52 @@ Playground.Setup("Sandbox", function()
 			Console.Warn("Playground: sandbox entity '%s' not found", name)
 		end
 	end
+end
 
-	-- The push button beside the house's TV plays the trailer on it and stops it again (or after TRAILER_DURATION)
-	local trailer = Playground.Spot("Sandbox_TrailerButton")
-	if (trailer) then
-		local trailer_button, trailer_timeout = nil, nil
-		local function ClearTrailerTimeout()
-			if (trailer_timeout) then
-				Timer.ClearTimeout(trailer_timeout)
-				trailer_timeout = nil
-			end
+-- The push button beside the house's TV plays the trailer on it and stops it again (or after SANDBOX_TRAILER_DURATION)
+local function SpawnTrailerButton(spot)
+	local trailer_button, trailer_timeout = nil, nil
+
+	local function ClearTrailerTimeout()
+		if (trailer_timeout) then
+			Timer.ClearTimeout(trailer_timeout)
+			trailer_timeout = nil
 		end
-		trailer_button = WallSwitch(trailer, "play trailer", "stop trailer", function()
-			ClearTrailerTimeout()
-			if (house_tv and house_tv:IsValid()) then house_tv:SetWebsite(nil, TRAILER_URL) end
-			trailer_timeout = Timer.SetTimeout(function()
-				trailer_timeout = nil
-				if (trailer_button and trailer_button:IsValid() and trailer_button.is_active) then
-					trailer_button:Deactivate()
-				end
-			end, TRAILER_DURATION)
-			Timer.Bind(trailer_timeout, trailer_button)
-		end, function()
-			ClearTrailerTimeout()
-			if (house_tv and house_tv:IsValid()) then house_tv:SetWebsite(nil, "") end
-		end, false, "PushButton")
 	end
+
+	trailer_button = WallSwitch(spot, "play trailer", "stop trailer", function()
+		ClearTrailerTimeout()
+		if (house_tv and house_tv:IsValid()) then house_tv:SetWebsite(nil, SANDBOX_TRAILER_URL) end
+
+		trailer_timeout = Timer.SetTimeout(function()
+			trailer_timeout = nil
+
+			if (trailer_button and trailer_button:IsValid() and trailer_button.is_active) then
+				trailer_button:Deactivate()
+			end
+		end, SANDBOX_TRAILER_DURATION)
+
+		Timer.Bind(trailer_timeout, trailer_button)
+	end, function()
+		ClearTrailerTimeout()
+		if (house_tv and house_tv:IsValid()) then house_tv:SetWebsite(nil, "") end
+	end, false, "PushButton")
+end
+
+Playground.Setup("Sandbox", function()
+	if (not Playground.HasSandbox()) then
+		Console.Log("Playground: Sandbox not loaded, the tool benches stay empty")
+		return
+	end
+
+	SpawnBenchTools()
+	SpawnStalls()
+	SpawnSpawnerItems()
+	SpawnShows()
+	SpawnHouseEntities()
+
+	local trailer = Playground.Spot("Sandbox_TrailerButton")
+	if (trailer) then SpawnTrailerButton(trailer) end
 
 	-- The switch by the door, under the lamp, lights it; on to start with
 	local light_switch = Playground.Spot("Sandbox_HouseLightSwitch")

@@ -1,7 +1,6 @@
 -- Soft dependency on the Sandbox game-mode
---
--- A map cannot require a game-mode, so nothing assumes Sandbox is loaded. Its classes are looked up
--- by name through the class registry, and whatever needs Sandbox (its entities, the buttons) is not spawned without it: no stand-ins
+-- A map cannot require a game-mode, so nothing assumes Sandbox is loaded: whatever needs it (its entities, the buttons) is not spawned without it, no stand-ins
+-- Sandbox's classes are registered globally (Prop.Inherit), so a fixed name is used as the global itself; a name read from a spot label goes through FindClass
 
 function Playground.HasSandbox()
 	return Sandbox ~= nil
