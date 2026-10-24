@@ -42,7 +42,7 @@ end
 
 local CLIENT_EXHIBITS = {
 	Billboard = function(spot)
-		return Billboard(OnPedestal(spot, 80), "nanos-world::M_NanosBillboardError", Vector2D(80, 80), false)
+		return Billboard(OnPedestal(spot, 50), "nanos-world::M_NanosBillboardError", Vector2D(45, 45), false)
 	end,
 	-- A blood splat projected straight down onto the pad: a Decal already points down at Rotator() (ADecalActor's root carries a -90 pitch
 	-- that multiplies with the spawn rotation), so only its yaw is set

@@ -21,11 +21,8 @@ if (Playground.theme == "halloween") then table.insert(FUN_PROPS, "nanos-world::
 -- How far a jukebox carries (cm), where it differs from Sandbox's default: the hub's fills the whole hub
 local JUKEBOX_DISTANCE = { Hub_Jukebox = 10000, Museum_Jukebox = 3500 }
 
--- A fixed song, where a jukebox should not pick one at random: the museum plays Satie's Gymnopedie No. 1
-local JUKEBOX_SONG = { Museum_Jukebox = "nanos-world::A_GymnopedieNo1" }
-
--- Sandbox's songs (its JUKEBOX_SONGS is not exported), one picked at random every time a jukebox spawns
-local JUKEBOX_SONGS = { "nanos-world::A_Velvet_Highway", "nanos-world::A_Midnight_Tides", "nanos-world::A_Stillness_at_Twilight", "nanos-world::A_The_Open_Latitude" }
+-- Sandbox's playlist a jukebox shuffles, where it is not the playground's: the museum only plays classical music
+local JUKEBOX_PLAYLIST = { Museum_Jukebox = "classical" }
 
 -- Sandbox owns the sky (and keeps it in sync for late joiners), so go through its console commands
 local function ApplySky(button)
@@ -53,7 +50,7 @@ Playground.Setup("Hub", function()
 			if (name:sub(-8) == "_Jukebox") then
 				local location, rotation = Playground.Top(spot, 1), Rotator(0, Playground.FrontYaw(spot), 0)
 				local distance = JUKEBOX_DISTANCE[name]
-				Playground.Slot(function() return Jukebox(location, rotation, JUKEBOX_SONG[name] or JUKEBOX_SONGS[math.random(#JUKEBOX_SONGS)], nil, nil, distance) end)
+				Playground.Slot(function() return Jukebox(location, rotation, JUKEBOX_PLAYLIST[name] or "playground", nil, nil, distance) end)
 			end
 		end
 	end

@@ -127,6 +127,12 @@ function Playground.RefillSlots(force)
 	return refilled
 end
 
+-- Takes the slot's entity away (wherever it is, even in use) and spawns a fresh one at home; returns it
+function Playground.Respawn(slot)
+	if (slot.entity and slot.entity:IsValid()) then slot.entity:Destroy() end
+	return Fill(slot)
+end
+
 -- A slot that never leaves a copy behind: once its entity is dropped further than reach away (or destroyed), the refill takes the dropped one away and puts a fresh one back
 -- (Playground.Slot keeps carried-off entities where they were left); one held by someone stays theirs
 function Playground.ReturningSlot(spawn, reach)
@@ -183,8 +189,9 @@ function Playground.PlaySound(location, asset, falloff, volume)
 end
 
 -- A button at location (its base's pivot) and rotation: a Sandbox LogicButton of style kind ("PushButton", "Lever", "Switch", nil for Classic) with colors, labels
--- and wires. Switchable ones call on_activate and on_deactivate in turns, the others on_activate on every press; is_on starts it activated, scale sizes it,
--- cooldown (ms) is how long it waits after a press before it takes another. Only with Sandbox: callers skip whatever needs a button without it
+-- and wires. Switchable ones call on_activate and on_deactivate in turns, the others on_activate on every press, both with the pressing player and character
+-- (nil when a wire or the code pressed it); is_on starts it activated, scale sizes it, cooldown (ms) is how long it waits after a press before it takes another.
+-- Only with Sandbox: callers skip whatever needs a button without it
 function Playground.Button(location, rotation, label_on, label_off, on_activate, on_deactivate, switchable, kind, is_on, scale, cooldown)
 	local button = Playground.Track(LogicButton(location, rotation, "", "", nil, switchable ~= false, kind))
 	button:SetGravityEnabled(false)
@@ -198,11 +205,11 @@ function Playground.Button(location, rotation, label_on, label_off, on_activate,
 	-- Instance overrides: the base still runs (colors, cooldown, linked entities), then the toy reacts
 	button.Activate = function(self, ...)
 		LogicButton.Activate(self, ...)
-		on_activate()
+		on_activate(...)
 	end
 	button.Deactivate = function(self, ...)
 		LogicButton.Deactivate(self, ...)
-		if (on_deactivate) then on_deactivate() end
+		if (on_deactivate) then on_deactivate(...) end
 	end
 
 	if (is_on) then button:Activate() end

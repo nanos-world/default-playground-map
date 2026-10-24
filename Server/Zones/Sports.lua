@@ -27,14 +27,13 @@ local WHISTLE_SOUND = "nanos-world::A_Referee_Whistle"
 local WHISTLE_FALLOFF, WHISTLE_VOLUME = 5000, 0.5
 -- playground_props.py BasketHoop, from the pole along local +Y: the backboard's face 123 in front (180 wide, 257 to 362 up), the rim (r 30) centred 165 in
 -- front, 270 up, and its net hanging 42 below it
--- A basket is a ball whose centre falls through this box under the rim; a ball flying into the board above the rim (its centre in BOARD) is not bounced
--- back but carried over the rim (OVER_RIM, in BANK_TIME seconds), and drops in from there
-local NET_CENTRE, NET_EXTENT = Vector(0, 165, 245), Vector(20, 20, 25)
-local BOARD_CENTRE, BOARD_EXTENT = Vector(0, 145, 318), Vector(75, 25, 38)
+-- A basket is a thrown ball hitting the red square on the board (59 x 47, its middle 36 over the rim): it scores and is carried over the rim (OVER_RIM,
+-- in BANK_TIME seconds), dropping in from there
+local SQUARE_CENTRE, SQUARE_EXTENT = Vector(0, 133, 306), Vector(30, 10, 24)
 local OVER_RIM = Vector(0, 165, 292)
 local BANK_TIME = 0.2
 -- A ball scoring loses this part of its speed, so it stays in the net or drops through the hoop instead of bouncing out
-local GOAL_DAMP, HOOP_DAMP = 0.8, 0.85
+local GOAL_DAMP = 0.8
 -- The crowd cheering a goal or a basket
 local SCORE_SOUND = "nanos-world::A_Applause"
 local SCORE_FALLOFF, SCORE_VOLUME = 6000, 0.5
@@ -267,22 +266,15 @@ Playground.Setup("Sports", function()
 	end
 
 	if (hoop) then
-		-- Only falling through: a ball thrown up under the rim does not count
-		local net = Playground.At(hoop, NET_CENTRE.X, NET_CENTRE.Y, NET_CENTRE.Z)
-		local trigger = Playground.Track(Trigger(net, hoop.rotation, NET_EXTENT, TriggerType.Box, false, Color.YELLOW, { "Prop" }))
-		trigger:Subscribe("BeginOverlap", function(_, ball)
-			if (not IsBall(ball) or ball:GetVelocity().Z > 0) then return end
-			Slow(ball, HOOP_DAMP, true)
-			Cheer(net + Vector(0, 0, 130), "+2")
-		end)
-
-		-- Thrown at the board (moving towards it, nobody holding it): over the rim instead of back
 		local over_rim = Playground.At(hoop, OVER_RIM.X, OVER_RIM.Y, OVER_RIM.Z)
-		local bank = Playground.Track(Trigger(Playground.At(hoop, BOARD_CENTRE.X, BOARD_CENTRE.Y, BOARD_CENTRE.Z), hoop.rotation, BOARD_EXTENT, TriggerType.Box, false, Color.BLUE, { "Prop" }))
-		bank:Subscribe("BeginOverlap", function(_, ball)
+		local square = Playground.At(hoop, SQUARE_CENTRE.X, SQUARE_CENTRE.Y, SQUARE_CENTRE.Z)
+		local trigger = Playground.Track(Trigger(square, hoop.rotation, SQUARE_EXTENT, TriggerType.Box, false, Color.YELLOW, { "Prop" }))
+		trigger:Subscribe("BeginOverlap", function(_, ball)
 			if (not IsBall(ball) or ball:GetHandler() or ball:GetAttachedTo()) then return end
-			if (hoop.rotation:UnrotateVector(ball:GetVelocity()).Y >= 0) then return end
+			-- Stopped, so it falls straight through the rim
+			Slow(ball, 1)
 			ball:TranslateTo(over_rim, BANK_TIME, 0)
+			Cheer(over_rim + Vector(0, 0, 80), "+2")
 		end)
 	end
 end)

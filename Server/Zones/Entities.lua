@@ -340,7 +340,7 @@ local EXHIBITS = {
 	Text3D = function(spot)
 		local text = Text3D(Top(spot, 60), Rotator(0, spot.rotation.Yaw + 180, 0), "nanos\nworld", Vector(1, 1, 1), PURPLE, FontType.Roboto, Text3DAlignCamera.Unaligned)
 		text:SetGlyphSettings(20, 2, Text3DBevelType.Convex, 4, false)
-		text:SetTextSettings(0, 0, 0, Text3DHorizontalAlignment.Center, Text3DVerticalAlignment.Center)
+		text:SetTextSettings(0, -30, 0, Text3DHorizontalAlignment.Center, Text3DVerticalAlignment.Center)
 		-- A regular lit material instead of the default glowing one
 		text:SetMaterial(LIT)
 		text:SetMaterialColorParameter("Tint", PURPLE)
@@ -351,13 +351,13 @@ local EXHIBITS = {
 	end,
 	-- No shadows: each light sits inside its own fixture
 	LightPoint = function(spot)
-		return KeepLight("LightPoint", Light(Top(spot, 60), Rotator(), POINT_COLOR, LightType.Point, 20, 600, 44, 0, 10000, true, false))
+		return KeepLight("LightPoint", Light(Top(spot, 60), Rotator(), POINT_COLOR, LightType.Point, 8, 600, 44, 0, 10000, true, false))
 	end,
 	LightSpot = function(spot)
-		return KeepLight("LightSpot", Light(Top(spot, 199), Rotator(-90, 0, 0), SPOT_COLOR, LightType.Spot, 40, 800, 35, 0, 10000, true, false))
+		return KeepLight("LightSpot", Light(Top(spot, 199), Rotator(-90, 0, 0), SPOT_COLOR, LightType.Spot, 15, 800, 35, 0, 10000, true, false))
 	end,
 	LightRect = function(spot)
-		return KeepLight("LightRect", Light(Top(spot, 120) + Facing(spot):GetForwardVector(), Facing(spot), RECT_COLOR, LightType.Rect, 20, 600, 44, 0, 10000, true, false))
+		return KeepLight("LightRect", Light(Top(spot, 120) + Facing(spot):GetForwardVector(), Facing(spot), RECT_COLOR, LightType.Rect, 8, 600, 44, 0, 10000, true, false))
 	end,
 	-- Same footprint and turn as the pad under it (2.6 m square); a lamp behind it turns green while anyone stands inside
 	-- Server triggers test each actor's origin, a character's capsule centre about 90 above its feet: the box reaches 200 up

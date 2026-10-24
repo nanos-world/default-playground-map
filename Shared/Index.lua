@@ -10,6 +10,8 @@ Playground = Playground or {}
 -- The info stand panel (placeholders.py InfoStand): leans back INFO_TILT degrees, its face centre in the stand's local axes
 INFO_TILT = 35
 INFO_FACE = Vector(0, 0.8, 100.6)
+-- The wall plate's panel (playground_props.py WallPlate): upright, its face centre in the plate's local axes (the pivot is on the wall)
+WALL_PLATE_FACE = Vector(0, 5, 0)
 
 -- A spot by name (the actor label without "_Spot"), nil when the level does not have it
 function Playground.Spot(name)
@@ -22,7 +24,7 @@ function Playground.SpotsWith(prefix)
 	local names = {}
 
 	for name, spot in pairs(SPOTS) do
-		if (name:sub(1, #prefix) == prefix and spot.mesh ~= "InfoStand" and spot.mesh ~= "InfoPlate" and spot.mesh ~= "TableSign") then
+		if (name:sub(1, #prefix) == prefix and spot.mesh ~= "InfoStand" and spot.mesh ~= "InfoPlate" and spot.mesh ~= "WallPlate" and spot.mesh ~= "TableSign") then
 			names[#names + 1] = name
 		end
 	end

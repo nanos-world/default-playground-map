@@ -45,7 +45,7 @@ local EXHIBIT_INFO = {
 
 -- Intro boards outside the hub doors of the zones that need one (hub.py INTRO_SKIP has none)
 local ZONE_INTRO = {
-	Sandbox = { "SANDBOX & PHYSICS", "Entities, the physics gun,\nevery tool gun, props\nand logic toys" },
+	Sandbox = { "SANDBOX & PHYSICS", "Entities, the physics gun,\nevery tool gun and props.\nOpen the context menu (C)\nand click things to explore more options" },
 	Entities = { "NATIVE ENTITIES", "A museum of every class\nthe scripting API spawns,\neach one live, with a stand" },
 }
 
@@ -128,15 +128,25 @@ local function Darkened(color)
 end
 
 local function InfoText(spot, title, body, color)
-	local rotation = Rotator(INFO_TILT, Playground.FrontYaw(spot), 0)
-	local up = Vector(0, -math.sin(math.rad(INFO_TILT)), math.cos(math.rad(INFO_TILT)))
+	-- Stands, plates and table signs share the leaning panel, a wall plate's stands upright
+	local tilt, face = INFO_TILT, INFO_FACE
+	if (spot.mesh == "WallPlate") then tilt, face = 0, WALL_PLATE_FACE end
+	local rotation = Rotator(tilt, Playground.FrontYaw(spot), 0)
+	local up = Vector(0, -math.sin(math.rad(tilt)), math.cos(math.rad(tilt)))
 	-- Lifted off the panel along its normal, or the letters sink into the surface
-	local normal = Vector(0, math.cos(math.rad(INFO_TILT)), math.sin(math.rad(INFO_TILT)))
+	local normal = Vector(0, math.cos(math.rad(tilt)), math.sin(math.rad(tilt)))
 	-- Stands are scaled uniformly (the small ones in front of the tool tables), the text scales with them
 	local s = spot.scale
 	local k = math.min(s.X, s.Z)
 	local function Scaled(v) return Vector(v.X * s.X, v.Y * s.Y, v.Z * s.Z) end
-	local title_at, body_at = Scaled(INFO_FACE + normal * 1.5 + up * 12), Scaled(INFO_FACE + normal * 1.5 - up * 6)
+	if (not body or body == "") then
+		-- A title alone (a stall's board): centred, as tall as half the panel and no wider than it (72 x 48 unscaled)
+		local at = Scaled(face + normal * 1.5)
+		local size = math.min(24 * s.Z, 72 * s.X * 0.85 / (0.62 * #title))
+		Text(Playground.At(spot, at.X, at.Y, at.Z), rotation, title, size, Darkened(color or PURPLE))
+		return
+	end
+	local title_at, body_at = Scaled(face + normal * 1.5 + up * 12), Scaled(face + normal * 1.5 - up * 6)
 	-- Long titles shrink to the width of about INFO_TITLE_FIT letters at full size, so they stay on the panel
 	local fit = math.min(1, INFO_TITLE_FIT / #title)
 	Text(Playground.At(spot, title_at.X, title_at.Y, title_at.Z), rotation, title, 8.5 * k * fit, Darkened(color or PURPLE))

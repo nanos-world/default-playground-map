@@ -5,9 +5,10 @@
 -- The carved pumpkins, one picked for each lamp (SM_Pumpkin_Carved_03 is a plain one)
 local CARVED = { "nanos-world::SM_Pumpkin_Carved_00", "nanos-world::SM_Pumpkin_Carved_01", "nanos-world::SM_Pumpkin_Carved_02" }
 -- One more carved pumpkin at the foot of every street lamp, beside its pole, in the lamp's own axes
-local LAMP_LANTERN = Vector(35, -15, 0)
--- Their faces look along local +X, turned to face where the lamp's head points (its +Y)
-local FACE_YAW = 90
+local LAMP_LANTERN = Vector(-15, -35, 0)
+
+-- Their faces look along local +X, the way the lamp's arm points
+local FACE_YAW = 0
 -- A pumpkin kicked further than this from its spot is put back on the next refill
 local PUMPKIN_REACH = 1500
 
