@@ -96,15 +96,16 @@ local CLIENT_EXHIBITS = {
 		plane:SetMaterialFromWebUI(ui)
 		Matte(plane)
 	end,
-	-- A security camera high in the gallery's corner beside the screen (the one away from the door), looking down across the room at its centre, brought out of the corner along its view so its body clears both walls
+	-- A surveillance camera high in the gallery's corner beside the screen (the one away from the door), its wall mount (the mesh's pivot) in the corner, looking down across the room at its centre
 	SceneCapture = function(spot)
-		local corner = Playground.At(spot, -455, 45, 370)
+		local corner = Playground.At(spot, -505, -5, 370)
 		local look = (Playground.At(spot, 0, 500, 90) - corner):ToOrientationRotator()
-		local at = corner + look:GetForwardVector() * 50
 
-		Playground.Keep(StaticMesh(at, look, "nanos-world::SM_Camera", CollisionType.NoCollision))
+		Playground.Keep(StaticMesh(corner, look, "nanos-world::SM_Camera_Surveillance", CollisionType.NoCollision))
 
-		local capture = Playground.Keep(SceneCapture(at + look:GetForwardVector() * 20, look, SCREEN_W * SCREEN_RES, SCREEN_H * SCREEN_RES, 0.033, 5000, 90))
+		-- The lens, at the front of the housing that sits over the mount's arm
+		local lens = corner + look:GetForwardVector() * 52 + look:GetUpVector() * 18
+		local capture = Playground.Keep(SceneCapture(lens, look, SCREEN_W * SCREEN_RES, SCREEN_H * SCREEN_RES, 0.033, 5000, 90))
 		local plane = ScreenPlane(spot)
 		plane:SetMaterialFromSceneCapture(capture)
 		Matte(plane)

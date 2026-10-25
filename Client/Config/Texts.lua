@@ -41,10 +41,6 @@ EXHIBIT_INFO = {
 		title = "Melee",
 		body = "Grab it and attack it with\nleft click. Any static mesh can\nbecome a melee weapon."
 	},
-	ShootingRange = {
-		title = "Shooting Range",
-		body = "Grab a weapon and shoot\nthe targets: they fall and\nstand up again."
-	},
 	Grenade = {
 		title = "Grenade",
 		body = "Pull the pin and throw.\nTimer, bounce and explosion\neffect are configurable."

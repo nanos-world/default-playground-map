@@ -175,12 +175,13 @@ RANGE_GAMES = {
 -- The range's sounds: a target's clang, and the referee's whistle from the board (once when a round starts, twice when it ends, gap ms apart)
 RANGE_CLANG = {
 	asset = "nanos-world::A_Metal_Clang",
-	falloff = 12000
+	falloff = 3000,
+	volume = 0.6
 }
 
 RANGE_WHISTLE = {
 	asset = "nanos-world::A_Referee_Whistle",
-	falloff = 6000,
-	volume = 0.5,
+	falloff = 2500,
+	volume = 0.35,
 	gap = 450
 }

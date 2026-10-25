@@ -110,7 +110,7 @@ end
 local function KnockDown(target)
 	target.up = false
 	Animate(target, RANGE_TARGET_FALL)
-	Playground.PlaySound(target.top, RANGE_CLANG.asset, RANGE_CLANG.falloff)
+	Playground.PlaySound(target.top, RANGE_CLANG.asset, RANGE_CLANG.falloff, RANGE_CLANG.volume)
 	Playground.ScorePop(target.top + Vector(0, 0, 20))
 end
 

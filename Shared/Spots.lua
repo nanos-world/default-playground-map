@@ -442,14 +442,6 @@ SPOTS = {
 		mesh = "InfoStand",
 		color = Color(0.020,0.600,0.750)
 	},
-	["Entities_ShootingRange_Info"] = {
-		location = Vector(400, -5030, 0),
-		rotation = Rotator(0, 90, 0),
-		scale = Vector(1, 1, 1),
-		top = 121.06,
-		mesh = "InfoStand",
-		color = Color(0.800,0.080,0.060)
-	},
 	["Entities_Shotgun"] = {
 		location = Vector(-1001.87, -5790.001, 5),
 		rotation = Rotator(0, -45.859, 0),
@@ -3584,12 +3576,12 @@ LAMPS = {
 	},
 	{
 		name = "Sandbox_StallLamp1",
-		location = Vector(6490, 1170, 5),
+		location = Vector(6490, 1370, 5),
 		rotation = Rotator(0, -90, 0)
 	},
 	{
 		name = "Sandbox_StallLamp2",
-		location = Vector(7600, 1170, 5),
+		location = Vector(7270, 1370, 5),
 		rotation = Rotator(0, -90, 0)
 	},
 	{
