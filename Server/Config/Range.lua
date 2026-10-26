@@ -35,8 +35,8 @@ RANGE_ARMORY = {
 	}
 }
 
--- A weapon dropped further than this from its table goes back on it at the next refill
-RANGE_WEAPON_REACH = 400
+-- A weapon moved further than this from its table goes back on it at the next refill
+RANGE_WEAPON_REACH = 100
 
 -- Grenades on the throwing wall
 RANGE_GRENADES = 4

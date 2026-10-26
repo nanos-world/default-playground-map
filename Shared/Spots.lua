@@ -2159,7 +2159,7 @@ SPOTS = {
 		mesh = "InfoPlate",
 		info = {
 			title = "CCTV",
-			body = "The camera on top films\nlive onto this monitor."
+			body = "The camera on top films\nlive onto this monitor.\nSet both up with C."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2204,7 +2204,7 @@ SPOTS = {
 		mesh = "WallPlate",
 		info = {
 			title = "CHAIN",
-			body = "Cubes roped one under\nthe other."
+			body = "Cubes roped one under\nthe other. Pull the last."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2623,7 +2623,7 @@ SPOTS = {
 		mesh = "WallPlate",
 		info = {
 			title = "CHAIR",
-			body = "Interact to sit. Sandbox chairs\ncome in many styles."
+			body = "Sit on it: walk up and\npress E. Sandbox chairs\ncome in many styles."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2635,7 +2635,7 @@ SPOTS = {
 		mesh = "TableSign",
 		info = {
 			title = "PHYSICS PROPS",
-			body = "Grab one with E. Scroll\nto turn it, right click to\nturn vertically, left click\nto throw it."
+			body = "Grab one with E. Scroll\nto turn it, right click\nto throw it."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2647,7 +2647,7 @@ SPOTS = {
 		mesh = "WallPlate",
 		info = {
 			title = "DOOR",
-			body = "Interact to open or close it.\nPick its style in the\ncontext menu (C)."
+			body = "Opens and closes with E.\nLock it, or pick its style\nin the context menu (C)."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2659,7 +2659,7 @@ SPOTS = {
 		mesh = "WallPlate",
 		info = {
 			title = "LAMP & SWITCH",
-			body = "Interact with the switch to turn\nthe lamp on and off. Wire\nyour own with the Wire Gun."
+			body = "Click the switch to turn\nthe lamp on and off. Wire\nyour own with the Wire Gun."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2678,7 +2678,7 @@ SPOTS = {
 		mesh = "WallPlate",
 		info = {
 			title = "PHOTO FRAME",
-			body = "Shows any picture: paste\nan image URL or base64\nin its context menu (C)."
+			body = "Shows any picture: paste\nan image URL or base64\nin its context menu."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2690,7 +2690,7 @@ SPOTS = {
 		mesh = "TableSign",
 		info = {
 			title = "CAMERA & FLASHLIGHT",
-			body = "Grab the instant camera\nand click to take photos.\nThe flashlight toggles (L)."
+			body = "Grab the instant camera\nand click to take photos.\nThe flashlight toggles."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2726,7 +2726,7 @@ SPOTS = {
 		mesh = "InfoStand",
 		info = {
 			title = "THE HOUSE",
-			body = "Every sandbox entity in\na home. Open the context\nmenu (C) and click one\nto customize or explore."
+			body = "Every sandbox entity in\na home. Open the context\nmenu (C) and click one\nto use or set it up."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -2940,7 +2940,7 @@ SPOTS = {
 		mesh = "InfoPlate",
 		info = {
 			title = "ROCKET POTTY",
-			body = "Two thrusters wired to\nthe potty send it flying.\nIt may get a little unstable."
+			body = "Two thrusters wired to\nthe potty send it flying."
 		},
 		color = Color(0.900,0.160,0.010)
 	},
@@ -4023,821 +4023,842 @@ PROPS = {
 		rotation = Rotator(0, 0, 0)
 	},
 	{
-		name = "South_RampTyres0_0_0",
+		name = "South_RampTyres0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17578.827, -3278.192, 20.985),
+		location = Vector(-17673.692, -3421.722, 23.919),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres0_0_1",
+		name = "South_RampTyres0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17578.827, -3278.192, 43.385),
+		location = Vector(-17673.692, -3421.722, 47.319),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres0_0_2",
+		name = "South_RampTyres0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17578.827, -3278.192, 65.785),
+		location = Vector(-17673.692, -3421.722, 70.719),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres0_1_0",
+		name = "South_RampTyres1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17535.823, -3390.222, 21.591),
+		location = Vector(-17767.05, -3457.558, 25.754),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres0_1_1",
+		name = "South_RampTyres1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17535.823, -3390.222, 43.991),
+		location = Vector(-17767.05, -3457.558, 49.154),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres0_1_2",
+		name = "South_RampTyres1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17535.823, -3390.222, 66.391),
+		location = Vector(-17767.05, -3457.558, 72.554),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_0_0",
+		name = "South_RampTyres2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18213.662, -3521.882, 36.871),
+		location = Vector(-17860.408, -3493.395, 27.84),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_0_1",
+		name = "South_RampTyres2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18213.662, -3521.882, 59.271),
+		location = Vector(-17860.408, -3493.395, 51.24),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_0_2",
+		name = "South_RampTyres2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18213.662, -3521.882, 81.671),
+		location = Vector(-17860.408, -3493.395, 74.64),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_1_0",
+		name = "South_RampTyres3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18170.658, -3633.912, 44.3),
+		location = Vector(-17953.766, -3529.232, 30.203),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_1_1",
+		name = "South_RampTyres3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18170.658, -3633.912, 66.7),
+		location = Vector(-17953.766, -3529.232, 53.603),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
-		name = "South_RampTyres1_1_2",
+		name = "South_RampTyres3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-18170.658, -3633.912, 89.1),
+		location = Vector(-17953.766, -3529.232, 77.003),
+		rotation = Rotator(0, 74, 0),
+		scale = Vector(0.35, 0.35, 0.35)
+	},
+	{
+		name = "South_RampTyres4_0",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(-18047.124, -3565.069, 32.836),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(0.35, 0.35, 0.35)
+	},
+	{
+		name = "South_RampTyres4_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(-18047.124, -3565.069, 56.236),
+		rotation = Rotator(0, 37, 0),
+		scale = Vector(0.35, 0.35, 0.35)
+	},
+	{
+		name = "South_RampTyres4_2",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(-18047.124, -3565.069, 79.636),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4365.894, 7318.127, -0.792),
+		location = Vector(-4365.894, 7318.127, -0.712),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4365.894, 7318.127, 21.608),
+		location = Vector(-4365.894, 7318.127, 22.688),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4365.894, 7318.127, 44.008),
+		location = Vector(-4365.894, 7318.127, 46.088),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4286.253, 7683.664, -0.792),
+		location = Vector(-4286.253, 7683.664, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4286.253, 7683.664, 21.608),
+		location = Vector(-4286.253, 7683.664, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4286.253, 7683.664, 44.008),
+		location = Vector(-4286.253, 7683.664, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4253.722, 8093.219, -0.792),
+		location = Vector(-4253.722, 8093.219, -0.709),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4253.722, 8093.219, 21.608),
+		location = Vector(-4253.722, 8093.219, 22.691),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4253.722, 8093.219, 44.008),
+		location = Vector(-4253.722, 8093.219, 46.091),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4292.673, 8537.786, -0.791),
+		location = Vector(-4292.673, 8537.786, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4292.673, 8537.786, 21.609),
+		location = Vector(-4292.673, 8537.786, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4292.673, 8537.786, 44.009),
+		location = Vector(-4292.673, 8537.786, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4418.694, 9002.505, -0.789),
+		location = Vector(-4418.694, 9002.505, -0.712),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4418.694, 9002.505, 21.611),
+		location = Vector(-4418.694, 9002.505, 22.688),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres120_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-4418.694, 9002.505, 44.011),
+		location = Vector(-4418.694, 9002.505, 46.088),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7090.66, 12712.403, 64.355),
+		location = Vector(-7090.66, 12712.403, 66.205),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7090.66, 12712.403, 86.755),
+		location = Vector(-7090.66, 12712.403, 89.605),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7090.66, 12712.403, 109.155),
+		location = Vector(-7090.66, 12712.403, 113.005),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7372.959, 12941.991, 80.006),
+		location = Vector(-7372.959, 12941.991, 81.592),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7372.959, 12941.991, 102.406),
+		location = Vector(-7372.959, 12941.991, 104.992),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7372.959, 12941.991, 124.806),
+		location = Vector(-7372.959, 12941.991, 128.392),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7667.861, 13152.318, 98.189),
+		location = Vector(-7667.861, 13152.318, 100.516),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7667.861, 13152.318, 120.589),
+		location = Vector(-7667.861, 13152.318, 123.916),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7667.861, 13152.318, 142.989),
+		location = Vector(-7667.861, 13152.318, 147.316),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7976.29, 13339.724, 120.888),
+		location = Vector(-7976.29, 13339.724, 127.602),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7976.29, 13339.724, 143.288),
+		location = Vector(-7976.29, 13339.724, 151.002),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7976.29, 13339.724, 165.688),
+		location = Vector(-7976.29, 13339.724, 174.402),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8283.25, 13493.262, 144.23),
+		location = Vector(-8283.25, 13493.262, 156.073),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8283.25, 13493.262, 166.63),
+		location = Vector(-8283.25, 13493.262, 179.473),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres173_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8283.25, 13493.262, 189.03),
+		location = Vector(-8283.25, 13493.262, 202.873),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17061.648, 1842.351, 3.3),
+		location = Vector(-17061.648, 1842.351, 3.953),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17061.648, 1842.351, 25.7),
+		location = Vector(-17061.648, 1842.351, 27.353),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17061.648, 1842.351, 48.1),
+		location = Vector(-17061.648, 1842.351, 50.753),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16900.693, 1540.097, 3.149),
+		location = Vector(-16900.693, 1540.097, 3.771),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16900.693, 1540.097, 25.549),
+		location = Vector(-16900.693, 1540.097, 27.171),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16900.693, 1540.097, 47.949),
+		location = Vector(-16900.693, 1540.097, 50.571),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16708.524, 1243.895, 2.848),
+		location = Vector(-16708.524, 1243.895, 3.387),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16708.524, 1243.895, 25.248),
+		location = Vector(-16708.524, 1243.895, 26.787),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16708.524, 1243.895, 47.648),
+		location = Vector(-16708.524, 1243.895, 50.187),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16488.322, 961.275, 2.444),
+		location = Vector(-16488.322, 961.275, 2.869),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16488.322, 961.275, 24.844),
+		location = Vector(-16488.322, 961.275, 26.269),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16488.322, 961.275, 47.244),
+		location = Vector(-16488.322, 961.275, 49.669),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16251.537, 713.005, 1.944),
+		location = Vector(-16251.537, 713.005, 2.257),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16251.537, 713.005, 24.344),
+		location = Vector(-16251.537, 713.005, 25.657),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres362_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-16251.537, 713.005, 46.744),
+		location = Vector(-16251.537, 713.005, 49.057),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6570.429, -2210.799, 2.791),
+		location = Vector(-6570.429, -2210.799, 2.867),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6570.429, -2210.799, 25.191),
+		location = Vector(-6570.429, -2210.799, 26.267),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6570.429, -2210.799, 47.591),
+		location = Vector(-6570.429, -2210.799, 49.667),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6208.294, -2368.132, 1.872),
+		location = Vector(-6208.294, -2368.132, 1.904),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6208.294, -2368.132, 24.272),
+		location = Vector(-6208.294, -2368.132, 25.304),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres472_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6208.294, -2368.132, 46.672),
+		location = Vector(-6208.294, -2368.132, 48.704),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8540.835, -10869.524, 18.469),
+		location = Vector(-8540.835, -10869.524, 18.983),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8540.835, -10869.524, 40.869),
+		location = Vector(-8540.835, -10869.524, 42.383),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8540.835, -10869.524, 63.269),
+		location = Vector(-8540.835, -10869.524, 65.783),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8857.34, -11027.496, 21.311),
+		location = Vector(-8857.34, -11027.496, 21.891),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8857.34, -11027.496, 43.711),
+		location = Vector(-8857.34, -11027.496, 45.291),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-8857.34, -11027.496, 66.111),
+		location = Vector(-8857.34, -11027.496, 68.691),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9185.052, -11155.624, 24.753),
+		location = Vector(-9185.052, -11155.624, 25.371),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9185.052, -11155.624, 47.153),
+		location = Vector(-9185.052, -11155.624, 48.771),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9185.052, -11155.624, 69.553),
+		location = Vector(-9185.052, -11155.624, 72.171),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9514.652, -11247.332, 28.754),
+		location = Vector(-9514.652, -11247.332, 29.407),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9514.652, -11247.332, 51.154),
+		location = Vector(-9514.652, -11247.332, 52.807),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9514.652, -11247.332, 73.554),
+		location = Vector(-9514.652, -11247.332, 76.207),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9849.3, -11308.602, 33.211),
+		location = Vector(-9849.3, -11308.602, 33.792),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9849.3, -11308.602, 55.611),
+		location = Vector(-9849.3, -11308.602, 57.192),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres559_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-9849.3, -11308.602, 78.011),
+		location = Vector(-9849.3, -11308.602, 80.592),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14719.465, -10213.668, 54.027),
+		location = Vector(-14719.465, -10213.668, 54.281),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14719.465, -10213.668, 76.427),
+		location = Vector(-14719.465, -10213.668, 77.681),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14719.465, -10213.668, 98.827),
+		location = Vector(-14719.465, -10213.668, 101.081),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14996.261, -10032.402, 55.341),
+		location = Vector(-14996.261, -10032.402, 55.663),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14996.261, -10032.402, 77.741),
+		location = Vector(-14996.261, -10032.402, 79.063),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-14996.261, -10032.402, 100.141),
+		location = Vector(-14996.261, -10032.402, 102.463),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15276.995, -9815.403, 58.003),
+		location = Vector(-15276.995, -9815.403, 58.307),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15276.995, -9815.403, 80.403),
+		location = Vector(-15276.995, -9815.403, 81.707),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15276.995, -9815.403, 102.803),
+		location = Vector(-15276.995, -9815.403, 105.107),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15543.548, -9576.045, 61.966),
+		location = Vector(-15543.548, -9576.045, 62.603),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15543.548, -9576.045, 84.366),
+		location = Vector(-15543.548, -9576.045, 86.003),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15543.548, -9576.045, 106.766),
+		location = Vector(-15543.548, -9576.045, 109.403),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15796.781, -9317.583, 67.01),
+		location = Vector(-15796.781, -9317.583, 68.268),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15796.781, -9317.583, 89.41),
+		location = Vector(-15796.781, -9317.583, 91.668),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres614_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-15796.781, -9317.583, 111.81),
+		location = Vector(-15796.781, -9317.583, 115.068),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.419, -5455.063, 55.086),
+		location = Vector(-17729.419, -5455.063, 55.977),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.419, -5455.063, 77.486),
+		location = Vector(-17729.419, -5455.063, 79.377),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.419, -5455.063, 99.886),
+		location = Vector(-17729.419, -5455.063, 102.777),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.377, -5023.432, 57.414),
+		location = Vector(-17729.377, -5023.432, 59.34),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.377, -5023.432, 79.814),
+		location = Vector(-17729.377, -5023.432, 82.74),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17729.377, -5023.432, 102.214),
+		location = Vector(-17729.377, -5023.432, 106.14),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17663.402, -4613.677, 51.826),
+		location = Vector(-17663.402, -4613.677, 55.389),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17663.402, -4613.677, 74.226),
+		location = Vector(-17663.402, -4613.677, 78.789),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres664_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-17663.402, -4613.677, 96.626),
+		location = Vector(-17663.402, -4613.677, 102.189),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_0_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7382.972, 2400.58, -0.792),
+		location = Vector(-7382.972, 2400.58, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_0_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7382.972, 2400.58, 21.608),
+		location = Vector(-7382.972, 2400.58, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_0_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7382.972, 2400.58, 44.008),
+		location = Vector(-7382.972, 2400.58, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_1_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7041.073, 2660.89, -0.792),
+		location = Vector(-7041.073, 2660.89, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_1_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7041.073, 2660.89, 21.608),
+		location = Vector(-7041.073, 2660.89, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_1_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-7041.073, 2660.89, 44.008),
+		location = Vector(-7041.073, 2660.89, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_2_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6720.4, 2919.622, -0.792),
+		location = Vector(-6720.4, 2919.622, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_2_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6720.4, 2919.622, 21.608),
+		location = Vector(-6720.4, 2919.622, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_2_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6720.4, 2919.622, 44.008),
+		location = Vector(-6720.4, 2919.622, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_3_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6468.222, 3152.255, -0.792),
+		location = Vector(-6468.222, 3152.255, -0.709),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_3_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6468.222, 3152.255, 21.608),
+		location = Vector(-6468.222, 3152.255, 22.691),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_3_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6468.222, 3152.255, 44.008),
+		location = Vector(-6468.222, 3152.255, 46.091),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_4_0",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6260.536, 3387.874, -0.792),
+		location = Vector(-6260.536, 3387.874, -0.71),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_4_1",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6260.536, 3387.874, 21.608),
+		location = Vector(-6260.536, 3387.874, 22.69),
 		rotation = Rotator(0, 37, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},
 	{
 		name = "South_Tyres67_4_2",
 		asset = "nanos-world::SM_TireLarge",
-		location = Vector(-6260.536, 3387.874, 44.008),
+		location = Vector(-6260.536, 3387.874, 46.09),
 		rotation = Rotator(0, 74, 0),
 		scale = Vector(0.35, 0.35, 0.35)
 	},

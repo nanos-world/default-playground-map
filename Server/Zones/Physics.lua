@@ -10,13 +10,14 @@ local function OnPedestal(spot)
 	return Playground.Top(spot, 0), Rotator(0, spot.rotation.Yaw, 0)
 end
 
--- A loose prop on a spot, at x, y in the spot's axes and lift above its top, that comes back when it is destroyed or carried far away
-local function LooseOn(spot, x, y, asset, lift, scale, yaw, roll)
+-- A loose prop on a spot, at x, y in the spot's axes and lift above its top, that comes back when it is destroyed or carried far away (one_way: vehicles push it without feeling it)
+local function LooseOn(spot, x, y, asset, lift, scale, yaw, roll, one_way)
 	scale = scale or 1
 
 	return Playground.PropSlot(Playground.At(spot, x, y, spot.top + lift), Rotator(0, spot.rotation.Yaw + (yaw or 0), roll or 0), asset, {
 		scale = scale ~= 1 and Vector(scale, scale, scale) or nil,
-		reach = PHYSICS_LOOSE_REACH
+		reach = PHYSICS_LOOSE_REACH,
+		one_way = one_way
 	})
 end
 
@@ -49,7 +50,7 @@ local function Scatter(spot, out)
 				local x = (i - (nx + 1) / 2) * sx / nx + math.random(-25, 25)
 				local y = (j - (ny + 1) / 2) * sy / ny + math.random(-25, 25)
 
-				out[#out + 1] = LooseOn(ground, x, y, item.asset, item.lift, item.scale, math.random(0, 359), item.roll)
+				out[#out + 1] = LooseOn(ground, x, y, item.asset, item.lift, item.scale, math.random(0, 359), item.roll, item.one_way)
 			end
 		end
 	end
@@ -860,7 +861,7 @@ Playground.Setup("Physics", function()
 
 	for index, entry in ipairs(Playground.SpotsWith("Sandbox_ToolPad")) do
 		for _, item in ipairs(PHYSICS_TOOL_PADS[(index - 1) % #PHYSICS_TOOL_PADS + 1]) do
-			yard[#yard + 1] = LooseOn(entry.spot, item.x, item.y, item.asset, item.lift, item.scale, item.yaw, item.roll)
+			yard[#yard + 1] = LooseOn(entry.spot, item.x, item.y, item.asset, item.lift, item.scale, item.yaw, item.roll, item.one_way)
 		end
 	end
 

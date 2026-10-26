@@ -8,7 +8,7 @@ local WEIGHT_TINT = Color(0.05, 0.05, 0.05)
 local ENTITY_LIFT = 20
 
 -- A tool gun left further than this from its bench, by nobody holding it, goes back on it at the next refill
-local TOOL_REACH = 300
+local TOOL_REACH = 100
 
 -- A tool hanging on a stall's back wall is put back once it is this far away (the remover took it)
 local HANGING_REACH = 50

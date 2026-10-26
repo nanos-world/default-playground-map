@@ -42,10 +42,10 @@ ENTITIES_RANGE_TABLES = {
 	Entities_RangeTable2 = { "AR4", "Rem870", "AWP" }
 }
 
--- A weapon dropped further than this from its table goes back on it at the next refill
-ENTITIES_RANGE_REACH = 400
+-- A weapon moved further than this from its table goes back on it at the next refill
+ENTITIES_RANGE_REACH = 100
 
--- Loose things to play with around each picnic table on the grass: x, y in the table's axes, scale, and z above the grass (on_table: on the table top instead)
+-- Loose things to play with around each picnic table on the grass: x, y in the table's axes, scale, and z above the grass (on_table: on the table top instead, one_way: vehicles push it without feeling it)
 ENTITIES_PICNIC_PROPS = {
 	{
 		asset = "nanos-world::SM_Ball_VR",
@@ -63,6 +63,7 @@ ENTITIES_PICNIC_PROPS = {
 	},
 	{
 		asset = "nanos-world::SM_Cone",
+		one_way = true,
 		x = 260,
 		y = -160,
 		scale = Vector(0.5, 0.5, 0.5),
@@ -70,6 +71,7 @@ ENTITIES_PICNIC_PROPS = {
 	},
 	{
 		asset = "nanos-world::SM_Cone",
+		one_way = true,
 		x = 300,
 		y = -40,
 		scale = Vector(0.5, 0.5, 0.5),
@@ -77,6 +79,7 @@ ENTITIES_PICNIC_PROPS = {
 	},
 	{
 		asset = "nanos-world::SM_Cone",
+		one_way = true,
 		x = 340,
 		y = 80,
 		scale = Vector(0.5, 0.5, 0.5),

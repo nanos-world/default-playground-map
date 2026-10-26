@@ -1,12 +1,13 @@
 -- Halloween decor, only while the theme is on (Playground.theme "halloween", Server/Index.lua): halloween.py's "Halloween_*" spots, hidden in the level, filled here
--- Halloween_Lantern* are carved pumpkins (SM_Pumpkin_Carved_0*), props to kick about; any other spot gets its own mesh (the graveyards' SM_Grave_*, the scarecrow)
+-- Halloween_Lantern* are carved pumpkins (SM_Pumpkin_Carved_0*), props to pick up; any other spot gets its own mesh (the graveyards' SM_Grave_*, the scarecrow)
 -- The sky is the client's (Client/Halloween.lua); the lamps turn orange (Lamps.lua) and the entities field grows pumpkins (Entities.lua)
 
 -- The pumpkins' faces look along local +X, the way the lamp's arm points
 local FACE_YAW = 0
 
+-- StaticOnly: rests on the ground but characters and vehicles go through it, still grabbable
 local function Pumpkin(location, rotation, asset)
-	Playground.PropSlot(location + Vector(0, 0, 1), rotation, asset, { reach = HALLOWEEN_PUMPKIN_REACH })
+	Playground.PropSlot(location + Vector(0, 0, 1), rotation, asset, { reach = HALLOWEEN_PUMPKIN_REACH, collision = CollisionType.StaticOnly })
 end
 
 Playground.Setup("Halloween", function()

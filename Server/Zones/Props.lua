@@ -10,11 +10,10 @@ end
 
 -- A prop on display on a stand; the museum's are only to look at: nobody grabs them and Sandbox does not break them (MELON #1 stays whole)
 local function SpawnExhibitProp(spot, in_museum)
-	local still = in_museum and PROPS_MUSEUM_STILL[spot.prop]
+	local still = PROPS_STILL[spot.prop]
 
 	Playground.PropSlot(AboveTop(spot, still or PROPS_EXHIBIT_LIFT), spot.rotation, spot.prop, {
 		reach = PROPS_EXHIBIT_REACH,
-		mass = PROPS_MASS[spot.prop],
 		grab_mode = in_museum and GrabMode.Disabled or nil,
 		gravity = not still,
 		unbreakable = in_museum
@@ -52,7 +51,7 @@ Playground.Setup("Props", function()
 		Playground.PropSlot(entry.location, entry.rotation, entry.asset, {
 			reach = PROPS_REACH,
 			scale = entry.scale,
-			mass = PROPS_MASS[entry.asset]
+			one_way = PROPS_ONE_WAY[entry.asset]
 		})
 	end
 

@@ -1,4 +1,4 @@
--- What each pad on the boulevard between the tool rows carries, the pads taking these sets in turn: x, y in the pad's axes, lift above its top (the pivot's height), and scale, yaw and roll when set
+-- What each pad on the boulevard between the tool rows carries, the pads taking these sets in turn: x, y in the pad's axes, lift above its top (the pivot's height), and scale, yaw, roll and one_way (vehicles push it without feeling it) when set
 PHYSICS_TOOL_PADS = {
 	{
 		{
@@ -116,6 +116,7 @@ PHYSICS_TOOL_PADS = {
 		},
 		{
 			asset = "nanos-world::SM_Offroad_Tire",
+			one_way = true,
 			x = 35,
 			y = -40,
 			lift = 21,
@@ -123,6 +124,7 @@ PHYSICS_TOOL_PADS = {
 		},
 		{
 			asset = "nanos-world::SM_Cone",
+			one_way = true,
 			x = 105,
 			y = 55,
 			lift = 26,
@@ -143,7 +145,7 @@ PHYSICS_TOOL_PADS = {
 	}
 }
 
--- Loose props scattered on the plaza beside the physics gun, dealt from a shuffled deck so they rarely repeat: lift (its pivot's height when standing), and scale and roll when set
+-- Loose props scattered on the plaza beside the physics gun, dealt from a shuffled deck so they rarely repeat: lift (its pivot's height when standing), and scale, roll and one_way when set
 PHYSICS_SCATTER_PROPS = {
 	{
 		asset = "nanos-world::SM_Crate_07",
@@ -222,11 +224,13 @@ PHYSICS_SCATTER_PROPS = {
 	},
 	{
 		asset = "nanos-world::SM_Cone",
+		one_way = true,
 		lift = 26,
 		scale = 0.5
 	},
 	{
 		asset = "nanos-world::SM_Offroad_Tire",
+		one_way = true,
 		lift = 21,
 		roll = 90
 	},

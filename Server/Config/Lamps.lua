@@ -12,3 +12,11 @@ STREET_LAMP_LIGHT = {
 
 -- The lens's emissive (MI_Plastic_IlluMI_On's Illum_Intensity, 0.1 by default) while lit
 STREET_LAMP_LENS_GLOW = 20
+
+-- A car entering reach (cm, around the pole's foot) at speed (cm/s, ~18 km/h) or more, its middle heading within width (cm) of the pole, knocks it over; it stands back up after respawn (ms)
+STREET_LAMP_BREAK = {
+	reach = 550,
+	speed = 500,
+	width = 130,
+	respawn = 30000
+}

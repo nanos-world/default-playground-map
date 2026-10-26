@@ -406,7 +406,7 @@ Playground.Setup("Entities", function()
 
 		for k, item in ipairs(ENTITIES_PICNIC_PROPS) do
 			local z = item.on_table and spot.top + 2 or item.z
-			Playground.PropSlot(Playground.At(spot, item.x, item.y, z), Rotator(0, spot.rotation.Yaw + k * 40, 0), item.asset, { scale = item.scale, reach = ENTITIES_PICNIC_REACH })
+			Playground.PropSlot(Playground.At(spot, item.x, item.y, z), Rotator(0, spot.rotation.Yaw + k * 40, 0), item.asset, { scale = item.scale, reach = ENTITIES_PICNIC_REACH, one_way = item.one_way })
 		end
 	end
 

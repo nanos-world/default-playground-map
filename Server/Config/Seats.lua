@@ -15,4 +15,4 @@ SEAT_TYPES = {
 }
 
 -- A seat shoved further than this from its spot (the physics gun) is put back on the next refill
-SEAT_REACH = 300
+SEAT_REACH = 100
