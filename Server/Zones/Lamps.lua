@@ -10,7 +10,7 @@ local POLE_SCALE = Vector(1, 1, 0.75)
 local HEAD = Vector(187, 0, 603)
 
 -- The switch on the pole's front (the arm's side, local +X), its back on the pole's surface
-local SWITCH = Vector(10.5, 0, 120)
+local SWITCH = Vector(10.5, 0, 145)
 local SWITCH_SCALE = 1.4
 
 -- When a broken lamp toggles (ms after the hit), off first and off last

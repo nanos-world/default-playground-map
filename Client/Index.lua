@@ -9,6 +9,10 @@ function Playground.Keep(entity)
 	return entity
 end
 
+Events.SubscribeRemote("Playground:Error", function(message)
+	Client.ShowNotification(message, NotificationType.Error, false, 3)
+end)
+
 -- Loads Package Files
 RequireAllLuaFilesInFolder("Client/Config")
 

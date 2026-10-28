@@ -57,6 +57,47 @@ local function SpawnSkyPanel(panel)
 	end
 end
 
+-- Every connected player must be present, including the one pressing; players loading or without a character block the reset
+local function SpawnReset(spot)
+	if (not spot.radius or spot.radius <= 0) then return end
+
+	local location = Playground.Top(spot, 0)
+	local button
+
+	button = Playground.PushButton(spot, "reset playground", function(player, causer)
+		if (not player or not player:IsValid()) then return end
+
+		local character = player:GetControlledCharacter()
+
+		-- Only a nearby player's interaction can reset, never a projectile, wire or remote press from elsewhere
+		if (not character or not character:IsValid() or causer ~= character or character:GetLocation():Distance(location) > 200) then return end
+
+		local missing = 0
+
+		for _, other in pairs(Player.GetPairs()) do
+			local pawn = other:GetControlledCharacter()
+			local offset = pawn and pawn:IsValid() and pawn:GetLocation() - spot.location or nil
+
+			if (not offset or offset.X * offset.X + offset.Y * offset.Y > spot.radius * spot.radius or math.abs(offset.Z - 90) > 200) then
+				missing = missing + 1
+			end
+		end
+
+		if (missing > 0) then
+			Events.CallRemote("Playground:Error", player, Reliability.Reliable, string.format("All players must be within %g m of this button (%d missing).", spot.radius / 100, missing))
+			return
+		end
+
+		-- Latches the button down and prevents further presses until the map reloads
+		button:SetSwitchable(nil, true)
+		button:SetValue("Active", true, true)
+		button:SetPressable(false)
+		button.Press = function() return false end
+
+		Sandbox.Reset(player)
+	end, 0)
+end
+
 Playground.Setup("Hub", function()
 	SpawnFountain()
 
@@ -66,6 +107,9 @@ Playground.Setup("Hub", function()
 	if (not Playground.HasSandbox()) then return end
 
 	SpawnJukeboxes()
+
+	local reset = Playground.Spot("Hub_Reset")
+	if (reset) then SpawnReset(reset) end
 
 	local panel = Playground.Spot("Hub_SkyPanel")
 	if (panel) then SpawnSkyPanel(panel) end

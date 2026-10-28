@@ -1,6 +1,6 @@
 -- Playground map, server side
 -- The level holds all the geometry and the placeholders; the server only spawns the entities that have to be real for everybody (weapons, vehicles, exhibits, sandbox tools) at the level's spots
--- Each zone file (Server/Zones) registers a setup; slots that players can take away are refilled by a respawner (Slots.lua)
+-- Each zone file (Server/Zones) registers a setup; slots can be reset manually through Slots.lua
 
 -- Exposes Playground to other packages
 Package.Export("Playground", Playground)
@@ -70,10 +70,10 @@ function Playground.SpawnWorld()
 	Console.Log("Playground: %d entities spawned, %d refillable slots. Sandbox %s.", #Playground.entities, #Playground.slots, Playground.HasSandbox() and "detected" or "not loaded")
 end
 
--- Puts back whatever players carried away from its spot
-Timer.SetInterval(function()
-	Playground.RefillSlots(false)
-end, 20000)
+-- -- Puts back whatever players carried away from its spot
+-- Timer.SetInterval(function()
+-- 	Playground.RefillSlots(false)
+-- end, 20000)
 
 Console.RegisterCommand("playground_reset", function()
 	Console.Log("Playground: %d slots reset.", Playground.RefillSlots(true))
