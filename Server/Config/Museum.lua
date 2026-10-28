@@ -124,8 +124,5 @@ MUSEUM_BALL_HEAP = {
 	seed = 99
 }
 
--- A ball carried further than this from the cabinet is put back on the next refill
-MUSEUM_BALL_REACH = 600
-
 -- The plastic barrel on the missing texture stand, painted with it too
 MUSEUM_MISSING_REACH = 1500

@@ -52,101 +52,14 @@ RANGE_BARREL_ASSETS = {
 
 RANGE_BARREL_RESPAWN = 15000
 
--- Things to shoot on the construction props (range.py "Range_Shoot_*" markers): the pieces each breaks into (asset, offset, rotation)
+-- Things to shoot on the construction props (range.py "Range_Shoot_*" markers), plain props of meshes Sandbox breaks by itself (its BREAKABLE_PROPS)
 RANGE_SHOOTABLES = {
-	{
-		asset = "nanos-world::SM_Fruit_Watermelon_01",
-		pieces = {
-			{
-				asset = "nanos-world::SM_Fruit_Watermelon_01_Half_01",
-				offset = Vector(0, -10, 5),
-				rotation = Rotator(0, 0, 90)
-			},
-			{
-				asset = "nanos-world::SM_Fruit_Watermelon_01_Half_01",
-				offset = Vector(0, 10, 5),
-				rotation = Rotator(0, 0, -90)
-			},
-			{
-				asset = "nanos-world::SM_Fruit_Watermelon_01_Slice_01",
-				offset = Vector(0, 0, 15),
-				rotation = Rotator()
-			}
-		}
-	},
-	{
-		asset = "nanos-world::SM_Fruit_Cantaloupe_01",
-		pieces = {
-			{
-				asset = "nanos-world::SM_Fruit_Cantaloupe_01_Half_01",
-				offset = Vector(0, -6, 4),
-				rotation = Rotator(0, 0, 90)
-			},
-			{
-				asset = "nanos-world::SM_Fruit_Cantaloupe_01_Half_01",
-				offset = Vector(0, 6, 4),
-				rotation = Rotator(0, 0, -90)
-			}
-		}
-	},
-	{
-		asset = "nanos-world::SM_Bottle_01",
-		pieces = {}
-	},
-	{
-		asset = "nanos-world::SM_Bottle_02",
-		pieces = {}
-	}
+	"nanos-world::SM_Fruit_Watermelon_01",
+	"nanos-world::SM_Fruit_Cantaloupe_01"
 }
 
--- Pumpkins are kept for Halloween
-if (Playground.theme == "halloween") then table.insert(RANGE_SHOOTABLES, { asset = "nanos-world::SM_Fruit_Pumpkin_01", pieces = {} }) end
-
--- A shootable comes back this long (ms) after it is gone, its pieces last this long (s)
+-- A shootable comes back this long (ms) after it is gone
 RANGE_SHOOTABLE_RESPAWN = 6000
-RANGE_PIECE_LIFESPAN = 8
-
--- The plates' animations (relative roll, and how long it takes in seconds), one frame after the other: knocked down by a hit, dropped by a game hiding it and raised again
-RANGE_TARGET_FALL = {
-	{
-		roll = -55,
-		time = 0.08
-	},
-	{
-		roll = -85,
-		time = 0.07
-	},
-	{
-		roll = -76,
-		time = 0.08
-	},
-	{
-		roll = -85,
-		time = 0.08
-	}
-}
-
-RANGE_TARGET_DROP = {
-	{
-		roll = -85,
-		time = 0.25
-	}
-}
-
-RANGE_TARGET_RISE = {
-	{
-		roll = 6,
-		time = 0.25
-	},
-	{
-		roll = -3,
-		time = 0.12
-	},
-	{
-		roll = 0,
-		time = 0.1
-	}
-}
 
 -- Outside a game a shot target stands up again this long (ms) after it falls, one of its column at random
 RANGE_IDLE_RISE = 3000
@@ -172,13 +85,7 @@ RANGE_GAMES = {
 	}
 }
 
--- The range's sounds: a target's clang, and the referee's whistle from the board (once when a round starts, twice when it ends, gap ms apart)
-RANGE_CLANG = {
-	asset = "nanos-world::A_Metal_Clang",
-	falloff = 3000,
-	volume = 0.6
-}
-
+-- The referee's whistle from the board (once when a round starts, twice when it ends, gap ms apart); the targets clang by themselves (Sandbox Target)
 RANGE_WHISTLE = {
 	asset = "nanos-world::A_Referee_Whistle",
 	falloff = 2500,

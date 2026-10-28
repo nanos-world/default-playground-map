@@ -1,5 +1,5 @@
 -- Free-standing targets: the level's target stand-ins (every spot of a Target mesh: paper, steel silhouette, gong, popper) become Sandbox's Target entity, with the plate of that spot's mesh (the entity clangs and pops a "+1" on hits by itself)
--- The shooting range's targets are its game's own (Range.lua)
+-- The shooting range's targets are Sandbox Targets too, spawned and driven by its game (Range.lua)
 
 Playground.Setup("Targets", function()
 	if (not Playground.HasSandbox()) then return end

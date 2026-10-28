@@ -56,15 +56,12 @@ local function HeapBalls()
 	return balls
 end
 
--- A glossy sphere on the bouncy rubber, on display: no gravity, nobody grabs it
-local function BouncyBall(location, radius, color)
-	local ball = Prop(location, Rotator(), "nanos-world::SM_Sphere", CollisionType.Normal, false, GrabMode.Disabled)
+-- A glossy sphere of the bouncy ball material on display, a StaticMesh: it never moves
+local function SpawnBouncyBall(location, radius, color)
+	local ball = Playground.Track(StaticMesh(location, Rotator(), "nanos-world::SM_Sphere"))
 	ball:SetScale(Vector(radius / 50, radius / 50, radius / 50))
 	ball:SetMaterial("nanos-world::MI_PG_BouncyBall")
 	ball:SetMaterialColorParameter("Tint", color)
-	ball:SetPhysicalMaterial("nanos-world::PM_RubberBouncy")
-
-	return ball
 end
 
 local function SpawnPictures()
@@ -97,7 +94,7 @@ Playground.Setup("Museum", function()
 			local location = Playground.At(cabinet, ball.x, ball.y, ball.z + 1)
 			local color = MUSEUM_BALL_COLORS[(k - 1) % #MUSEUM_BALL_COLORS + 1]
 
-			Playground.Slot(function() return BouncyBall(location, ball.r, color) end, MUSEUM_BALL_REACH)
+			SpawnBouncyBall(location, ball.r, color)
 		end
 	end
 
