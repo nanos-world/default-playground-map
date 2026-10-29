@@ -10,12 +10,11 @@ local GOAL_CENTRE, GOAL_EXTENT = Vector(0, -31, 88), Vector(135, 19, 88)
 -- A ball that scored cannot score again until its centre has left this box around the goal (the net and 2.4 m of pitch in front of it), so one lying at the back of the net, or rolling about in it, counts once
 local GOAL_AREA_CENTRE, GOAL_AREA_EXTENT = Vector(0, 40, 120), Vector(260, 200, 150)
 
--- Out of bounds: a ball going further than OUT_MARGIN past the lines of the pitch or the court is out, the whistle blows and OUT_DELAY ms later it is put back at rest (kicks and grabs disabled for SETTLE_TIME s)
+-- Out of bounds: a ball going further than OUT_MARGIN past the lines of the pitch or the court is out, the whistle blows and OUT_DELAY ms later it is put back at rest with its linear and angular velocities reset
 -- On the pitch it goes on the nearest point of the side line, or in the nearest corner when it went over a goal line; on the court on the basketball's spot
 local OUT_MARGIN = 40
 local OUT_HEIGHT = 600
 local OUT_DELAY = 1000
-local SETTLE_TIME = 0.3
 
 -- The pitch's playing area (sports.py PITCH: 2400 along between the goal lines, 1300 across), and the height of a ball's centre resting on it
 local PITCH_HALF_ALONG, PITCH_HALF_ACROSS = 1200, 650
@@ -78,18 +77,6 @@ local function Freeze(ball, frozen)
 	ball:SetGrabMode(frozen and GrabMode.Disabled or GrabMode.Auto)
 end
 
--- Puts a ball back at rest with TranslateTo, blocking kicks and grabs briefly so they cannot cancel the reset
-local function Settle(ball, location)
-	Freeze(ball, true)
-	ball:SetLocation(location)
-	ball:TranslateTo(location, SETTLE_TIME, 0)
-
-	local timer = Timer.SetTimeout(function()
-		if (ball:IsValid()) then Freeze(ball, false) end
-	end, math.floor(SETTLE_TIME * 1000))
-	Timer.Bind(timer, ball)
-end
-
 -- A goal by any ball: GOAL! and a point on the board, the ball frozen in the net and back on the centre spot (kick_off, its centre's height) a moment later
 local function Goal(spot, ball, kick_off, side)
 	Cheer(Playground.At(spot, 0, 0, 230), "GOAL!")
@@ -105,10 +92,11 @@ local function Goal(spot, ball, kick_off, side)
 		if (not Playground.spawned or not ball:IsValid() or ball:GetHandler()) then return end
 
 		if (kick_off) then
-			Settle(ball, kick_off)
-		else
-			Freeze(ball, false)
+			ball:ResetVelocity()
+			ball:SetLocation(kick_off)
 		end
+
+		Freeze(ball, false)
 	end, SPORTS_GOAL_RESET)
 end
 
@@ -139,7 +127,8 @@ local function OutOfBounds(centre, rotation, extent, back_to)
 			if (math.abs(away.X) <= extent.X and math.abs(away.Y) <= extent.Y and math.abs(away.Z) <= extent.Z) then return end
 
 			Playground.PlaySound(ball:GetLocation(), SPORTS_WHISTLE.asset, SPORTS_WHISTLE.falloff, SPORTS_WHISTLE.volume)
-			Settle(ball, back_to(ball))
+			ball:ResetVelocity()
+			ball:SetLocation(back_to(ball))
 		end, OUT_DELAY)
 	end)
 end
