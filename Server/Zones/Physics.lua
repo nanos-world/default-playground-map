@@ -499,6 +499,7 @@ end
 local BALL_DROP_HEIGHT = 650
 local BALL_DROP_COUNT = 15
 local BALL_LIFESPAN = 25
+local BALL_DROP_COOLDOWN = 2000
 
 local function SpawnBallDrop(pad_spot, button_spot)
 	local function Drop()
@@ -513,7 +514,7 @@ local function SpawnBallDrop(pad_spot, button_spot)
 		end
 	end
 
-	Playground.PushButton(button_spot, "drop balls", Drop)
+	Playground.PushButton(button_spot, "drop balls", Drop, BALL_DROP_COOLDOWN)
 end
 
 -- Rocket potty: a portable toilet on the pad with a sandbox thruster on each side, wired to a sandbox button; each press puts it back on the pad if it flew off, then fires them for a moment
