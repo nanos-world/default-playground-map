@@ -1,4 +1,4 @@
--- Sandbox zone (sandbox.py), when Sandbox runs: the tool stalls (a button per tool gives it, the tools hang on the back walls), the physics guns on their table, each sandbox entity in the house, and what each stall shows
+-- Sandbox zone (sandbox.py), when Sandbox runs: the tool stalls (a button per tool gives it, decorative ToolGun meshes hang on the back walls), the physics guns on their table, each sandbox entity in the house, and what each stall shows
 
 local CUBE = "nanos-world::SM_Cube"
 local DARK = Color(0.03, 0.03, 0.03)
@@ -9,9 +9,6 @@ local ENTITY_LIFT = 20
 
 -- A tool gun left further than this from its bench, by nobody holding it, goes back on it at the next refill
 local TOOL_REACH = 100
-
--- A tool hanging on a stall's back wall is put back once it is this far away (the remover took it)
-local HANGING_REACH = 50
 
 -- A painted prop of the stalls carried further than this is put back on the next refill
 local SHOW_REACH = 1500
@@ -136,32 +133,20 @@ local ITEMS = {
 	end,
 }
 
--- A tool hanging on a stall's back wall at its marker (its local +Y out of the wall): upright, its side to the visitor, muzzle to the visitor's left, out of reach of physics; brought back if the remover takes it
-local function HangTool(class, name, spot)
-	local shape = LYING_SHAPES[name] or LYING_SHAPES.ToolGun
-	local rotation = Rotator(0, spot.rotation.Yaw + 180, 0)
-	local out = spot.rotation:RotateVector(Vector(0, shape.half + 1, 0))
-	local location = spot.location + out - rotation:RotateVector(shape.centre)
-
-	Playground.Slot(function()
-		local tool = class(location, rotation)
-		tool:SetGravityEnabled(false)
-		tool:SetPickable(false)
-		tool:SetCollision(CollisionType.NoCollision)
-
-		return tool
-	end, HANGING_REACH)
-end
-
 -- Gives a fresh tool to whoever pressed a stall's button, in their hands; like the spawn menu, what they held goes
 local function GiveTool(class, player, causer)
 	local character = (causer and causer:IsValid() and causer:IsA(Character)) and causer or (player and player:GetControlledCharacter())
 	if (not character or not character:IsValid() or not character:IsA(Character)) then return end
 
+	player = player or character:GetPlayer()
+	if (not player or not player:IsValid() or not Sandbox.ValidateSpawnLimits(player, "tools")) then return end
+
 	local held = character:GetPicked()
 	if (held and held:IsValid()) then held:Destroy() end
 
-	character:PickUp(class(character:GetLocation(), Rotator()))
+	local tool = class(character:GetLocation(), Rotator())
+	Sandbox.SpawnHistory.AddItemToHistory(player, tool)
+	character:PickUp(tool)
 end
 
 -- A cable from a fixed point (a cable not attached at its start holds there) to the top of an entity (SM_Cube / SM_Ball_VR unscaled)
@@ -401,14 +386,8 @@ local function SpawnBenchTools()
 	end
 end
 
--- The stalls: each tool on its back wall ("Sandbox_Wall_<class>") and a button on the counter giving it ("Sandbox_Give_<class>")
+-- The stalls: decorative ToolGun meshes in the level and a counter button per tool ("Sandbox_Give_<class>")
 local function SpawnStalls()
-	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Wall_")) do
-		local name = entry.name:sub(#"Sandbox_Wall_" + 1)
-		local class = Playground.FindClass(name)
-		if (class) then HangTool(class, name, entry.spot) end
-	end
-
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Give_")) do
 		local name = entry.name:sub(#"Sandbox_Give_" + 1)
 		local class = Playground.FindClass(name)

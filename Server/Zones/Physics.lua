@@ -357,7 +357,7 @@ local TRAMPOLINE_LAUNCH = 850
 
 local function SpawnTrampoline(spot)
 	-- Server triggers only test each actor's origin, which for a character is its capsule centre about 90 above its feet: tall enough to catch that, low enough for props on the mat
-	local trigger = Playground.Track(Trigger(spot.location + Vector(0, 0, TRAMPOLINE_TOP + 70), Rotator(), Vector(180, 180, 70), TriggerType.Box, false, Color.WHITE, { "Character", "CharacterSimple", "Prop" }))
+	local trigger = Playground.Track(Trigger(spot.location + Vector(0, 0, TRAMPOLINE_TOP + 70), Rotator(), Vector(180, 180, 70), TriggerType.Box, false, Color.WHITE, { "Character", "CharacterSimple", "Prop", "Weapon", "Melee" }))
 
 	trigger:Subscribe("BeginOverlap", function(self, entity)
 		if (entity:IsA(Character) or entity:IsA(CharacterSimple)) then
@@ -370,7 +370,9 @@ local function SpawnTrampoline(spot)
 			Timer.SetTimeout(function()
 				if (entity:IsValid()) then entity:SetJumpZVelocity(jump) end
 			end, 500)
-		elseif (entity:IsA(Prop)) then
+		elseif (entity:IsA(Prop) or entity:IsA(Weapon) or entity:IsA(Melee)) then
+			if (Playground.IsInUse(entity)) then return end
+
 			entity:AddImpulse(Vector(0, 0, TRAMPOLINE_LAUNCH), true)
 		else
 			return
