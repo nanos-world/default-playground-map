@@ -10,7 +10,7 @@ local GOAL_CENTRE, GOAL_EXTENT = Vector(0, -31, 88), Vector(135, 19, 88)
 -- A ball that scored cannot score again until its centre has left this box around the goal (the net and 2.4 m of pitch in front of it), so one lying at the back of the net, or rolling about in it, counts once
 local GOAL_AREA_CENTRE, GOAL_AREA_EXTENT = Vector(0, 40, 120), Vector(260, 200, 150)
 
--- Out of bounds: a ball going further than OUT_MARGIN past the lines of the pitch or the court is out, the whistle blows and OUT_DELAY ms later it is put back at rest (held still SETTLE_TIME s)
+-- Out of bounds: a ball going further than OUT_MARGIN past the lines of the pitch or the court is out, the whistle blows and OUT_DELAY ms later it is put back at rest (kicks and grabs disabled for SETTLE_TIME s)
 -- On the pitch it goes on the nearest point of the side line, or in the nearest corner when it went over a goal line; on the court on the basketball's spot
 local OUT_MARGIN = 40
 local OUT_HEIGHT = 600
@@ -72,16 +72,22 @@ function Score.SideFor(board, goal_spot)
 	return board.rotation:UnrotateVector(goal_spot.location - board.location).X < 0 and 2 or 1
 end
 
--- Puts ball at location at rest: TranslateTo keeps it still there, no speed and no spin, wherever it is simulated
-local function Settle(ball, location)
-	ball:SetLocation(location)
-	ball:TranslateTo(location, SETTLE_TIME, 0)
-end
-
 -- Freezes a ball (Sandbox's Ball: no kick, no grab) or lets it go again
 local function Freeze(ball, frozen)
 	if (ball.SetKickEnabled) then ball:SetKickEnabled(not frozen) end
 	ball:SetGrabMode(frozen and GrabMode.Disabled or GrabMode.Auto)
+end
+
+-- Puts a ball back at rest with TranslateTo, blocking kicks and grabs briefly so they cannot cancel the reset
+local function Settle(ball, location)
+	Freeze(ball, true)
+	ball:SetLocation(location)
+	ball:TranslateTo(location, SETTLE_TIME, 0)
+
+	local timer = Timer.SetTimeout(function()
+		if (ball:IsValid()) then Freeze(ball, false) end
+	end, math.floor(SETTLE_TIME * 1000))
+	Timer.Bind(timer, ball)
 end
 
 -- A goal by any ball: GOAL! and a point on the board, the ball frozen in the net and back on the centre spot (kick_off, its centre's height) a moment later
@@ -98,8 +104,11 @@ local function Goal(spot, ball, kick_off, side)
 	Timer.SetTimeout(function()
 		if (not Playground.spawned or not ball:IsValid() or ball:GetHandler()) then return end
 
-		Freeze(ball, false)
-		if (kick_off) then Settle(ball, kick_off) end
+		if (kick_off) then
+			Settle(ball, kick_off)
+		else
+			Freeze(ball, false)
+		end
 	end, SPORTS_GOAL_RESET)
 end
 
