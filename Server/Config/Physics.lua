@@ -292,7 +292,7 @@ PHYSICS_CANNON_FRUITS = {
 
 -- Fireworks: each press sends up shells volley shells, interval ms apart, that burst fuse ms after they leave at speed; the button waits cooldown ms before the next volley
 PHYSICS_FIREWORKS = {
-	shells = 5,
+	shells = 1,
 	interval = 350,
 	speed = 6000,
 	fuse = 1500,

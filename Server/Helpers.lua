@@ -6,12 +6,12 @@ local WEAPON_TABLE_LENGTH = 210
 -- The "+1" a hit pops up
 local SCORE_COLOR = Color(1, 0.8, 0.1)
 
--- A refillable physics Prop of asset; options (all optional): reach, scale (Vector), grab_mode, collision (CollisionType, Normal by default), tint, gravity (false holds it in the air), unbreakable (Sandbox does not break it), one_way (vehicles push it without feeling it)
+-- A refillable physics Prop of asset; options (all optional): reach, scale (Vector), grab_mode, collision (CollisionType, Auto by default), tint, gravity (false holds it in the air), unbreakable (Sandbox does not break it), one_way (vehicles push it without feeling it)
 function Playground.PropSlot(location, rotation, asset, options)
 	options = options or {}
 
 	return Playground.Slot(function()
-		local prop = Prop(location, rotation, asset, options.collision or CollisionType.Normal, true, options.grab_mode or GrabMode.Enabled)
+		local prop = Prop(location, rotation, asset, options.collision or CollisionType.Auto, true, options.grab_mode or GrabMode.Enabled)
 
 		if (options.scale) then prop:SetScale(options.scale) end
 		if (options.tint) then prop:SetMaterialColorParameter("Tint", options.tint) end
