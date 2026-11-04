@@ -6,7 +6,7 @@ STREET_LAMP_LIGHT = {
 	intensity = 20,
 	radius = 2000,
 	cone = 80,
-	inner_cone = 20,
+	inner_cone_percent = 0.25,		-- fraction of the cone (0-1), not degrees: 20 made a 1600 degree inner cone and blocky shadows
 	draw_distance = 7000
 }
 

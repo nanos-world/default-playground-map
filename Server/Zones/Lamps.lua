@@ -28,7 +28,7 @@ end
 local function SpawnLamp(lamp, color)
 	local config = STREET_LAMP_LIGHT
 	local head = Playground.At(lamp, HEAD.X, HEAD.Y, HEAD.Z)
-	local light = Playground.Track(Light(head, Rotator(-90, 0, 0), color, LightType.Spot, config.intensity, config.radius, config.cone, config.inner_cone, config.draw_distance, true, true))
+	local light = Playground.Track(Light(head, Rotator(-90, 0, 0), color, LightType.Spot, config.intensity, config.radius, config.cone, config.inner_cone_percent, config.draw_distance, true, true))
 
 	-- A Prop without gravity does not simulate, so it stands as still as a StaticMesh until a car knocks it over
 	local pole = Playground.Track(Prop(lamp.location, lamp.rotation, POLE, CollisionType.Normal, false, GrabMode.Disabled, CCDMode.Enabled))
