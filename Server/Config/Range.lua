@@ -27,7 +27,11 @@ RANGE_ARMORY = {
 	},
 	{
 		table = "Range_Armory_Battle",
-		weapons = { "GE3", "BAR", "Lewis", "DC15S" }
+		weapons = { "GE3", "BAR", "Lewis" }
+	},
+	{
+		table = "Range_Armory_Blasters",
+		weapons = { "BlasterRifle", "BlasterPistol" }
 	},
 	{
 		table = "Range_Armory_Snipers",
@@ -58,7 +62,15 @@ RANGE_SHOOTABLES = {
 	"nanos-world::SM_Fruit_Cantaloupe_01"
 }
 
--- A shootable comes back this long (ms) after it is gone
+-- Things that break on the ground of the explosives range (range.py "Range_Grenade_Breakable*" markers), also from Sandbox's BREAKABLE_PROPS
+RANGE_GROUND_BREAKABLES = {
+	"nanos-world::SM_ConcreteBag_Stack_01",
+	"nanos-world::SM_Trash_01",
+	"nanos-world::SM_Fruit_Watermelon_01",
+	"nanos-world::SM_Fruit_Squash_01"
+}
+
+-- A shootable or ground breakable comes back this long (ms) after it is gone
 RANGE_SHOOTABLE_RESPAWN = 6000
 
 -- Outside a game a shot target stands up again this long (ms) after it falls, one of its column at random

@@ -1,4 +1,4 @@
--- Shooting range: weapons on the armory tables, the targets of the short and long ranges and their shooting game, grenades, exploding barrels and construction props with things to shoot on them at the explosives pit
+-- Shooting range: weapons on the armory tables (and a button that puts them back), the targets of the short and long ranges and their shooting game, grenades, exploding barrels and construction props with things to shoot on them at the explosives pit
 
 -- The targets of the short and long ranges (range.py "Range_<Range>_Lane<i>_R<row>_C<column>" spots, the same targets in every lane): Sandbox's Target entity held still, which the game raises and lowers itself
 -- The entity clangs, pops a "+1" and plays the shooter's hit marker on every hit that knocks it down
@@ -14,14 +14,14 @@ local BOARD_INK = Color(0, 0, 0)
 -- A shootable's pivot lifted off the construction prop it stands on
 local SHOOTABLE_LIFT = 2
 
--- A thing to shoot on a "Range_Shoot_*" marker: a plain Prop that Sandbox breaks by itself (Breakable), a new pick comes back a while after it is gone (shot, or removed some other way)
-local function SpawnShootable(spot)
-	local asset = RANGE_SHOOTABLES[math.random(#RANGE_SHOOTABLES)]
+-- A thing to shoot on a marker: a plain Prop (one of assets) that Sandbox breaks by itself (Breakable), a new pick comes back a while after it is gone (shot, or removed some other way)
+local function SpawnShootable(spot, assets)
+	local asset = assets[math.random(#assets)]
 	local prop = Playground.Track(Prop(spot.location + Vector(0, 0, SHOOTABLE_LIFT), Rotator(0, math.random(0, 359), 0), asset, CollisionType.Normal, true, GrabMode.Enabled))
 
 	prop:Subscribe("Destroy", function()
 		Timer.SetTimeout(function()
-			if (Playground.spawned) then SpawnShootable(spot) end
+			if (Playground.spawned) then SpawnShootable(spot, assets) end
 		end, RANGE_SHOOTABLE_RESPAWN)
 	end)
 
@@ -283,12 +283,20 @@ local function SpawnGame(name, spots)
 end
 
 Playground.Setup("Range", function()
+	-- Every weapon of the range (the armory and the grenades), for the respawn button
+	local weapon_slots = {}
+
 	if (not NanosWorldWeapons) then
 		Console.Warn("Playground: default-weapons not loaded, the armory stays empty")
 	else
 		for _, group in ipairs(RANGE_ARMORY) do
 			local spot = Playground.Spot(group.table)
-			if (spot) then Playground.WeaponsOnTable(spot, group.weapons, RANGE_WEAPON_REACH, group.is_melee) end
+
+			if (spot) then
+				for _, slot in ipairs(Playground.WeaponsOnTable(spot, group.weapons, RANGE_WEAPON_REACH, group.is_melee)) do
+					weapon_slots[#weapon_slots + 1] = slot
+				end
+			end
 		end
 	end
 
@@ -297,8 +305,18 @@ Playground.Setup("Range", function()
 	if (wall) then
 		for i = 1, RANGE_GRENADES do
 			local location = Playground.At(wall, 0, (i - (RANGE_GRENADES + 1) / 2) * 60, 120)
-			Playground.Slot(function() return Grenade(location, Rotator()) end)
+			weapon_slots[#weapon_slots + 1] = Playground.Slot(function() return Grenade(location, Rotator()) end)
 		end
+	end
+
+	-- Takes every weapon nobody holds away and puts a fresh one back in its place
+	local respawn = Playground.Spot("Range_WeaponsRespawn")
+	if (respawn and Playground.HasSandbox()) then
+		Playground.PushButton(respawn, "respawn weapons", function()
+			for _, slot in ipairs(weapon_slots) do
+				Playground.Respawn(slot, true)
+			end
+		end)
 	end
 
 	-- Sandbox is what makes them explode
@@ -314,6 +332,13 @@ Playground.Setup("Range", function()
 
 	-- On the construction props across the lanes and in the explosives range (range.py cover())
 	for _, entry in ipairs(Playground.SpotsWith("Range_Shoot_")) do
-		SpawnShootable(entry.spot)
+		SpawnShootable(entry.spot, RANGE_SHOOTABLES)
+	end
+
+	-- On the explosives range's ground, only Sandbox breaks them
+	if (Playground.HasSandbox()) then
+		for _, entry in ipairs(Playground.SpotsWith("Range_Grenade_Breakable")) do
+			SpawnShootable(entry.spot, RANGE_GROUND_BREAKABLES)
+		end
 	end
 end)

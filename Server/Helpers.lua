@@ -50,9 +50,10 @@ function Playground.LyingMelee(shape, center, yaw)
 	return center - rotation:RotateVector(Vector(s.x, 0, s.center)) + Vector(0, 0, s.lift), rotation
 end
 
--- default-weapons' weapons by name side by side along a table spot (its local X), lying on their side, grips towards the visitor at the front (local +Y) and muzzles to the back; melees the same way round, centred on the table (their pivot is the handle's end)
+-- default-weapons' weapons by name side by side along a table spot (its local X), lying on their side, grips towards the visitor at the front (local +Y) and muzzles to the back; melees the same way round, centred on the table (their pivot is the handle's end); returns their slots
 function Playground.WeaponsOnTable(spot, names, reach, is_melee)
-	if (not NanosWorldWeapons) then return end
+	local slots = {}
+	if (not NanosWorldWeapons) then return slots end
 
 	local step = WEAPON_TABLE_LENGTH / #names
 
@@ -68,9 +69,11 @@ function Playground.WeaponsOnTable(spot, names, reach, is_melee)
 				location, rotation = Playground.LyingMelee(name, Playground.At(spot, along, 0, spot.top), spot.rotation.Yaw)
 			end
 
-			Playground.Slot(function() return class(location, rotation) end, reach)
+			slots[#slots + 1] = Playground.Slot(function() return class(location, rotation) end, reach)
 		end
 	end
+
+	return slots
 end
 
 -- A "+1" (or text) that rises from location and fades, for a shot that hit something on the range or a goal; it destroys itself

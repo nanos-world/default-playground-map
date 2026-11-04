@@ -12,6 +12,10 @@ local BOARD_TITLE_W = 360
 local INFO_TITLE_FIT = 15
 local INFO_TITLE_MAX = 0.4
 
+-- An info stand's web addresses fit this width of the 72 cm panel, lower case letters running about LINK_LETTER_W of their size each
+local INFO_LINK_W = 68
+local LINK_LETTER_W = 0.52
+
 local function WelcomeControls()
 	local lines = { "CONTROLS" }
 
@@ -55,8 +59,9 @@ local function Darkened(color)
 	return Color(color.R * k, color.G * k, color.B * k)
 end
 
--- A title and body on an info stand, plate, table sign or wall plate
-local function InfoText(spot, title, body, color)
+-- A title and body on an info stand, plate, table sign or wall plate; with link (web addresses, one per line) the title and body move up and the addresses
+-- go underneath, as big as the longest one allows on the panel's width
+local function InfoText(spot, title, body, color, link)
 	-- Stands, plates and table signs share the leaning panel, a wall plate's stands upright
 	local tilt, face = INFO_TILT, INFO_FACE
 	if (spot.mesh == "WallPlate") then tilt, face = 0, WALL_PLATE_FACE end
@@ -81,13 +86,24 @@ local function InfoText(spot, title, body, color)
 		return
 	end
 
-	local title_at, body_at = Scaled(face + normal * 1.5 + up * 12), Scaled(face + normal * 1.5 - up * 6)
+	local title_up, body_up = 12, -6
+	if (link) then title_up, body_up = 15, 1 end
+
+	local title_at, body_at = Scaled(face + normal * 1.5 + up * title_up), Scaled(face + normal * 1.5 + up * body_up)
 
 	-- Long titles shrink to the width of about INFO_TITLE_FIT letters at full size, so they stay on the panel
 	local fit = math.min(1, INFO_TITLE_FIT / #title)
 
 	Text(Playground.At(spot, title_at.X, title_at.Y, title_at.Z), rotation, title, 8.5 * k * fit, Darkened(color or PURPLE))
 	Text(Playground.At(spot, body_at.X, body_at.Y, body_at.Z), rotation, body, 5.5 * k, INK)
+
+	if (link) then
+		local longest = 0
+		for line in link:gmatch("[^\n]+") do longest = math.max(longest, #line) end
+
+		local link_at = Scaled(face + normal * 1.5 - up * 16)
+		Text(Playground.At(spot, link_at.X, link_at.Y, link_at.Z), rotation, link, math.min(4 * k, INFO_LINK_W * s.X / (LINK_LETTER_W * longest)), Darkened(color or PURPLE))
+	end
 end
 
 -- The labels of the hub's time and weather panel (its buttons are the server's)
@@ -107,8 +123,13 @@ function Playground.SpawnTexts()
 		if (spot) then InfoText(spot, info.title, info.body, spot.color) end
 	end
 
+	-- A Board spot with info (the range's weapons board) gets the board's layout, in smaller print than the hub's intros
 	for _, spot in pairs(SPOTS) do
-		if (spot.info) then InfoText(spot, spot.info.title, spot.info.body, spot.color) end
+		if (spot.info and spot.mesh == "Board") then
+			BoardText(spot, spot.info.title, spot.info.body, 40, 13)
+		elseif (spot.info) then
+			InfoText(spot, spot.info.title, spot.info.body, spot.color, spot.info.link)
+		end
 	end
 
 	for zone, info in pairs(ZONE_INTRO) do

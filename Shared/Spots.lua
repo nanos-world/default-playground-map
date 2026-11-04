@@ -145,6 +145,19 @@ SPOTS = {
 		mesh = "InfoStand",
 		color = Color(0.150,0.600,0.100)
 	},
+	["Entities_Docs_Info"] = {
+		location = Vector(1000, -9150, 0),
+		rotation = Rotator(0, 81, 0),
+		scale = Vector(1.4, 1.4, 1.4),
+		top = 169.484,
+		mesh = "InfoStand",
+		info = {
+			title = "DOCUMENTATION",
+			body = "Every native class, its\nfunctions and examples, in\nthe Scripting Reference.",
+			link = "docs.nanos-world.com"
+		},
+		color = Color(0.050,0.450,0.250)
+	},
 	["Entities_Gizmo"] = {
 		location = Vector(959.884, -7388.579, 5),
 		rotation = Rotator(0, -178.831, 0),
@@ -1059,6 +1072,19 @@ SPOTS = {
 		top = 64,
 		mesh = "Pedestal"
 	},
+	["Hub_OpenSource_Info"] = {
+		location = Vector(1150, -1260, 5),
+		rotation = Rotator(0, 43, 0),
+		scale = Vector(1.4, 1.4, 1.4),
+		top = 169.484,
+		mesh = "InfoStand",
+		info = {
+			title = "OPEN SOURCE",
+			body = "This map and the sandbox\nare open source: see how\neverything here is made.",
+			link = "nanos-world.com/store/packages/default-playground-map\nnanos-world.com/store/packages/sandbox"
+		},
+		color = Color(0.050,0.450,0.250)
+	},
 	["Hub_PicnicTable"] = {
 		location = Vector(1000, -1720, 5),
 		rotation = Rotator(0, 0, 0),
@@ -1082,7 +1108,7 @@ SPOTS = {
 		mesh = "InfoPlate",
 		info = {
 			title = "RESET PLAYGROUND",
-			body = "Resets and re-spawn everything.\nAll players must be\nwithin 5 m of this button."
+			body = "Resets everything.\nAll players must be\nwithin 5 m of this button."
 		},
 		color = Color(0.800,0.080,0.060)
 	},
@@ -1440,6 +1466,13 @@ SPOTS = {
 		top = 94,
 		mesh = "Table"
 	},
+	["Range_Armory_Blasters"] = {
+		location = Vector(1150, 2370, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 94,
+		mesh = "Table"
+	},
 	["Range_Armory_Carbines"] = {
 		location = Vector(145, 3100, 5),
 		rotation = Rotator(0, 180, 0),
@@ -1448,7 +1481,7 @@ SPOTS = {
 		mesh = "Table"
 	},
 	["Range_Armory_Melee"] = {
-		location = Vector(100, 2370, 5),
+		location = Vector(800, 2370, 5),
 		rotation = Rotator(0, 0, 0),
 		scale = Vector(1, 1, 1),
 		top = 94,
@@ -1462,14 +1495,14 @@ SPOTS = {
 		mesh = "Table"
 	},
 	["Range_Armory_SMGs"] = {
-		location = Vector(-1280, 3100, 5),
+		location = Vector(-930, 3100, 5),
 		rotation = Rotator(0, 180, 0),
 		scale = Vector(1, 1, 1),
 		top = 94,
 		mesh = "Table"
 	},
 	["Range_Armory_Shotguns"] = {
-		location = Vector(-930, 3100, 5),
+		location = Vector(-1280, 3100, 5),
 		rotation = Rotator(0, 180, 0),
 		scale = Vector(1, 1, 1),
 		top = 94,
@@ -1493,6 +1526,30 @@ SPOTS = {
 	["Range_Grenade_Barrel1"] = {
 		location = Vector(2200, 5450, 0),
 		rotation = Rotator(0, 37, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel10"] = {
+		location = Vector(1800, 7100, 0),
+		rotation = Rotator(0, 10, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel11"] = {
+		location = Vector(2300, 7800, 0),
+		rotation = Rotator(0, 47, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel12"] = {
+		location = Vector(4100, 7900, 0),
+		rotation = Rotator(0, 84, 0),
 		scale = Vector(1, 1, 1),
 		top = 110,
 		mesh = "Barrel",
@@ -1529,6 +1586,108 @@ SPOTS = {
 		top = 110,
 		mesh = "Barrel",
 		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel6"] = {
+		location = Vector(1600, 4900, 0),
+		rotation = Rotator(0, -138, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel7"] = {
+		location = Vector(2900, 5000, 0),
+		rotation = Rotator(0, -101, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel8"] = {
+		location = Vector(3800, 5150, 0),
+		rotation = Rotator(0, -64, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Barrel9"] = {
+		location = Vector(4000, 6200, 0),
+		rotation = Rotator(0, -27, 0),
+		scale = Vector(1, 1, 1),
+		top = 110,
+		mesh = "Barrel",
+		asset = "/Game/NanosWorldMaps/Maps/Playground/Placeholders/SM_PH_Barrel"
+	},
+	["Range_Grenade_Breakable0"] = {
+		location = Vector(1700, 5400, 0),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable1"] = {
+		location = Vector(2400, 4950, 0),
+		rotation = Rotator(0, 53, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable2"] = {
+		location = Vector(3300, 5350, 0),
+		rotation = Rotator(0, 106, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable3"] = {
+		location = Vector(4200, 5600, 0),
+		rotation = Rotator(0, 159, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable4"] = {
+		location = Vector(1900, 6100, 0),
+		rotation = Rotator(0, -148, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable5"] = {
+		location = Vector(3600, 6600, 0),
+		rotation = Rotator(0, -95, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable6"] = {
+		location = Vector(2100, 7600, 0),
+		rotation = Rotator(0, -42, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable7"] = {
+		location = Vector(3000, 7500, 0),
+		rotation = Rotator(0, 11, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable8"] = {
+		location = Vector(3900, 6800, 0),
+		rotation = Rotator(0, 64, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_Grenade_Breakable9"] = {
+		location = Vector(2600, 7100, 0),
+		rotation = Rotator(0, 117, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
 	},
 	["Range_Grenade_Info"] = {
 		location = Vector(1500, 3450, 5),
@@ -1779,79 +1938,92 @@ SPOTS = {
 		top = 100.3,
 		mesh = "ButtonPedestal"
 	},
+	["Range_OpenSource_Info"] = {
+		location = Vector(1350, 2370, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1.4, 1.4, 1.4),
+		top = 169.484,
+		mesh = "InfoStand",
+		info = {
+			title = "OPEN SOURCE",
+			body = "Every weapon here comes\nfrom Default Weapons: see\neach one's settings.",
+			link = "nanos-world.com/store/packages/default-weapons"
+		},
+		color = Color(0.050,0.450,0.250)
+	},
 	["Range_Shoot_Grenade110"] = {
-		location = Vector(4335.789, 5256.524, 79.35),
-		rotation = Rotator(0, 163.728, 0),
+		location = Vector(1565.173, 7939.317, 79.35),
+		rotation = Rotator(0, -109.747, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade111"] = {
-		location = Vector(4314.082, 5182.157, 79.35),
-		rotation = Rotator(0, 163.728, 0),
+		location = Vector(1638.088, 7913.142, 79.35),
+		rotation = Rotator(0, -109.747, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade120"] = {
-		location = Vector(3794.527, 6233.993, 99.563),
-		rotation = Rotator(0, -75.991, 0),
+		location = Vector(3217.657, 4955.918, 99.563),
+		rotation = Rotator(0, -36.033, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade121"] = {
-		location = Vector(3813.984, 6156.01, 99.563),
-		rotation = Rotator(0, -75.991, 0),
+		location = Vector(3282.654, 4908.639, 99.563),
+		rotation = Rotator(0, -36.033, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade40"] = {
-		location = Vector(2039.088, 7573.269, 103.349),
-		rotation = Rotator(0, -3.968, 0),
+		location = Vector(1513.848, 5833.6, 103.349),
+		rotation = Rotator(0, 101.707, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade41"] = {
-		location = Vector(2105.791, 7568.642, 103.349),
-		rotation = Rotator(0, -3.968, 0),
+		location = Vector(1500.28, 5899.072, 103.349),
+		rotation = Rotator(0, 101.707, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade50"] = {
-		location = Vector(1621.091, 7205.797, 139.047),
-		rotation = Rotator(0, -47.392, 0),
+		location = Vector(1972.634, 4699.269, 139.047),
+		rotation = Rotator(0, 44.947, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade51"] = {
-		location = Vector(1660.805, 7162.62, 139.047),
-		rotation = Rotator(0, -47.392, 0),
+		location = Vector(2014.155, 4740.712, 139.047),
+		rotation = Rotator(0, 44.947, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade70"] = {
-		location = Vector(1605.169, 5721.711, 105.749),
-		rotation = Rotator(0, 120.363, 0),
+		location = Vector(1567.373, 6743.647, 105.749),
+		rotation = Rotator(0, -37.659, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade80"] = {
-		location = Vector(3935.032, 7914.664, 120.113),
-		rotation = Rotator(0, -8.485, 0),
+		location = Vector(3798.523, 4791.804, 120.113),
+		rotation = Rotator(0, 89.652, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
 	},
 	["Range_Shoot_Grenade81"] = {
-		location = Vector(3944.495, 7978.097, 120.113),
-		rotation = Rotator(0, -8.485, 0),
+		location = Vector(3734.389, 4792.194, 120.113),
+		rotation = Rotator(0, 89.652, 0),
 		scale = Vector(1, 1, 1),
 		top = 128,
 		mesh = ""
@@ -2086,6 +2258,37 @@ SPOTS = {
 		top = 100.3,
 		mesh = "ButtonPedestal"
 	},
+	["Range_WeaponsInfo"] = {
+		location = Vector(150, 2370, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(0.75, 1, 0.75),
+		top = 298.5,
+		mesh = "Board",
+		info = {
+			title = "HOW WEAPONS WORK",
+			body = "Grab a weapon from the tables (E), shoot with\nleft click, reload with R and drop it with G.\n\nAim modes: fire from the hip with left click,\nor hold right click to aim over the shoulder.\nScroll up while aiming to zoom in closer.\n\nADS (aim down sights): switch to first person\nwith V, hold right click and scroll up."
+		},
+		color = Color(0.800,0.080,0.060)
+	},
+	["Range_WeaponsRespawn"] = {
+		location = Vector(380, 2370, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 100.3,
+		mesh = "ButtonPedestal"
+	},
+	["Range_WeaponsRespawn_Info"] = {
+		location = Vector(380, 2385.6, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(0.65, 0.65, 0.65),
+		top = 78.689,
+		mesh = "InfoPlate",
+		info = {
+			title = "RESPAWN WEAPONS",
+			body = "Puts every weapon nobody\nis holding back on its table."
+		},
+		color = Color(0.800,0.080,0.060)
+	},
 	["Sandbox_BallDrop"] = {
 		location = Vector(9400, -450, 5),
 		rotation = Rotator(0, 0, 0),
@@ -2234,6 +2437,48 @@ SPOTS = {
 		scale = Vector(2.6, 1.2, 0.02),
 		top = 2,
 		mesh = "Block"
+	},
+	["Sandbox_Display_ToolGun_Constrainers0"] = {
+		location = Vector(7537.846, 1471.5, 153.998),
+		rotation = Rotator(-10, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Sandbox_Display_ToolGun_Constrainers1"] = {
+		location = Vector(7890.898, 1471.5, 178.738),
+		rotation = Rotator(9, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Sandbox_Display_ToolGun_Spawners0"] = {
+		location = Vector(5804.794, 1471.5, 160.52),
+		rotation = Rotator(-8, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Sandbox_Display_ToolGun_Spawners1"] = {
+		location = Vector(6150.347, 1471.5, 183.137),
+		rotation = Rotator(12, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Sandbox_Display_ToolGun_Tools0"] = {
+		location = Vector(6755.882, 1471.5, 179.361),
+		rotation = Rotator(6, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Sandbox_Display_ToolGun_Tools1"] = {
+		location = Vector(7011.715, 1471.5, 149.48),
+		rotation = Rotator(-12, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
 	},
 	["Sandbox_Elastics"] = {
 		location = Vector(5350, -1650, 330),
@@ -3321,6 +3566,19 @@ SPOTS = {
 		top = 78,
 		mesh = "Picnic"
 	},
+	["South_OpenSource_Info"] = {
+		location = Vector(-2830, -480, 19),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1.4, 1.4, 1.4),
+		top = 169.484,
+		mesh = "InfoStand",
+		info = {
+			title = "OPEN SOURCE",
+			body = "Every vehicle here comes\nfrom Default Vehicles: see\neach one's settings.",
+			link = "nanos-world.com/store/packages/default-vehicles"
+		},
+		color = Color(0.050,0.450,0.250)
+	},
 	["South_TruckBay00"] = {
 		location = Vector(-4100, -3540, 3),
 		rotation = Rotator(0, 0, 0),
@@ -3591,7 +3849,7 @@ PROPS = {
 	{
 		name = "Range_ArmoryBin",
 		asset = "nanos-world::SM_ParkBin",
-		location = Vector(-1150, 2400, 0),
+		location = Vector(-1300, 2440, 0),
 		rotation = Rotator(0, 0, 0)
 	},
 	{

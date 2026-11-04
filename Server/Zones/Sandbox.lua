@@ -386,8 +386,14 @@ local function SpawnBenchTools()
 	end
 end
 
--- The stalls: decorative ToolGun meshes in the level and a counter button per tool ("Sandbox_Give_<class>")
+-- The stalls: decorative ToolGun meshes hanging on the back walls ("Sandbox_Display_ToolGun_*", the mesh's pivot and pitch) and a counter button per tool ("Sandbox_Give_<class>")
 local function SpawnStalls()
+	-- A plain Weapon held still, nobody can pick it up (the mesh is the game's, so the map cannot hold it as level art)
+	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Display_ToolGun_")) do
+		local display = Playground.Track(Weapon(entry.spot.location, entry.spot.rotation, "nanos-world::SK_ToolGun", CollisionType.NoCollision, false))
+		display:SetPickable(false)
+	end
+
 	for _, entry in ipairs(Playground.SpotsWith("Sandbox_Give_")) do
 		local name = entry.name:sub(#"Sandbox_Give_" + 1)
 		local class = Playground.FindClass(name)
