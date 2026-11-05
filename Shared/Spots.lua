@@ -1951,6 +1951,219 @@ SPOTS = {
 		},
 		color = Color(0.050,0.450,0.250)
 	},
+	["Range_PvP_Bounds"] = {
+		location = Vector(6550, 4500, 150),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1950, 2400, 450),
+		top = 128,
+		mesh = ""
+	},
+	["Range_PvP_Cover1"] = {
+		location = Vector(6350, 2610, 0),
+		rotation = Rotator(0, 10, 0),
+		scale = Vector(1, 1, 1),
+		top = 103.349,
+		mesh = "",
+		prop = "nanos-world::SM_Crate_Full_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_Crate_Full_01"
+	},
+	["Range_PvP_Cover10"] = {
+		location = Vector(5160, 5440, 0),
+		rotation = Rotator(0, 35, 0),
+		scale = Vector(1, 1, 1),
+		top = 87.81,
+		mesh = "",
+		prop = "nanos-world::SM_PlasticBarrel_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_PlasticBarrel_01"
+	},
+	["Range_PvP_Cover11"] = {
+		location = Vector(5000, 3530, 0),
+		rotation = Rotator(0, 15, 0),
+		scale = Vector(1, 1, 1),
+		top = 123.63,
+		mesh = "",
+		prop = "nanos-world::SM_Barrel_02",
+		asset = "/Game/NanosWorldMaps/Art/Rural/Extra/SM_Barrel_02"
+	},
+	["Range_PvP_Cover12"] = {
+		location = Vector(5065, 3575, 0),
+		rotation = Rotator(0, 85, 0),
+		scale = Vector(1, 1, 1),
+		top = 87.81,
+		mesh = "",
+		prop = "nanos-world::SM_PlasticBarrel_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_PlasticBarrel_01"
+	},
+	["Range_PvP_Cover13"] = {
+		location = Vector(4995, 3625, 0),
+		rotation = Rotator(0, 50, 0),
+		scale = Vector(1, 1, 1),
+		top = 123.63,
+		mesh = "",
+		prop = "nanos-world::SM_Barrel_02",
+		asset = "/Game/NanosWorldMaps/Art/Rural/Extra/SM_Barrel_02"
+	},
+	["Range_PvP_Cover14"] = {
+		location = Vector(7040, 4730, 0),
+		rotation = Rotator(0, 15, 0),
+		scale = Vector(1, 1, 1),
+		top = 123.63,
+		mesh = "",
+		prop = "nanos-world::SM_Barrel_02",
+		asset = "/Game/NanosWorldMaps/Art/Rural/Extra/SM_Barrel_02"
+	},
+	["Range_PvP_Cover15"] = {
+		location = Vector(6995, 4805, 0),
+		rotation = Rotator(0, 70, 0),
+		scale = Vector(1, 1, 1),
+		top = 87.81,
+		mesh = "",
+		prop = "nanos-world::SM_PlasticBarrel_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_PlasticBarrel_01"
+	},
+	["Range_PvP_Cover16"] = {
+		location = Vector(7060, 4860, 0),
+		rotation = Rotator(0, 45, 0),
+		scale = Vector(1, 1, 1),
+		top = 123.63,
+		mesh = "",
+		prop = "nanos-world::SM_Barrel_02",
+		asset = "/Game/NanosWorldMaps/Art/Rural/Extra/SM_Barrel_02"
+	},
+	["Range_PvP_Cover17"] = {
+		location = Vector(7795, 4900, 0),
+		rotation = Rotator(0, 100, 0),
+		scale = Vector(1, 1, 1),
+		top = 123.63,
+		mesh = "",
+		prop = "nanos-world::SM_Barrel_02",
+		asset = "/Game/NanosWorldMaps/Art/Rural/Extra/SM_Barrel_02"
+	},
+	["Range_PvP_Cover18"] = {
+		location = Vector(5265, 6030, 0),
+		rotation = Rotator(0, 40, 0),
+		scale = Vector(1, 1, 1),
+		top = 87.81,
+		mesh = "",
+		prop = "nanos-world::SM_PlasticBarrel_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_PlasticBarrel_01"
+	},
+	["Range_PvP_Cover19"] = {
+		location = Vector(7720, 6100, 0),
+		rotation = Rotator(0, 18, 0),
+		scale = Vector(1, 1, 1),
+		top = 16.203,
+		mesh = "",
+		prop = "nanos-world::SM_WoodenPalette",
+		asset = "/Game/NanosWorldAssets/Construction/SM_WoodenPalette"
+	},
+	["Range_PvP_Cover2"] = {
+		location = Vector(6700, 3730, 0),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 152.66,
+		mesh = "",
+		prop = "nanos-world::SM_CableReel",
+		asset = "/Game/NanosWorldAssets/Construction/SM_CableReel"
+	},
+	["Range_PvP_Cover20"] = {
+		location = Vector(6960, 5160, 0),
+		rotation = Rotator(0, 95, 0),
+		scale = Vector(1, 1, 1),
+		top = 16.203,
+		mesh = "",
+		prop = "nanos-world::SM_WoodenPalette",
+		asset = "/Game/NanosWorldAssets/Construction/SM_WoodenPalette"
+	},
+	["Range_PvP_Cover21"] = {
+		location = Vector(7640, 5620, 0),
+		rotation = Rotator(0, 15, 0),
+		scale = Vector(1, 1, 1),
+		top = 103.349,
+		mesh = "",
+		prop = "nanos-world::SM_Crate_Full_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_Crate_Full_01"
+	},
+	["Range_PvP_Cover22"] = {
+		location = Vector(5460, 4270, 0),
+		rotation = Rotator(0, 55, 0),
+		scale = Vector(1, 1, 1),
+		top = 98.319,
+		mesh = "",
+		prop = "nanos-world::SM_Crate_Base_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_Crate_Base_01"
+	},
+	["Range_PvP_Cover4"] = {
+		location = Vector(7550, 4350, 0),
+		rotation = Rotator(0, 15, 0),
+		scale = Vector(1, 1, 1),
+		top = 103.349,
+		mesh = "",
+		prop = "nanos-world::SM_Crate_Full_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_Crate_Full_01"
+	},
+	["Range_PvP_Cover6"] = {
+		location = Vector(6850, 6330, 0),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 87.81,
+		mesh = "",
+		prop = "nanos-world::SM_PlasticBarrel_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_PlasticBarrel_01"
+	},
+	["Range_PvP_Cover7"] = {
+		location = Vector(7520, 6450, 0),
+		rotation = Rotator(0, 12, 0),
+		scale = Vector(1, 1, 1),
+		top = 103.349,
+		mesh = "",
+		prop = "nanos-world::SM_Crate_Full_01",
+		asset = "/Game/NanosWorldAssets/Construction/SM_Crate_Full_01"
+	},
+	["Range_PvP_Cover9"] = {
+		location = Vector(5590, 3850, 0),
+		rotation = Rotator(0, 14, 0),
+		scale = Vector(1, 1, 1),
+		top = 16.203,
+		mesh = "",
+		prop = "nanos-world::SM_WoodenPalette",
+		asset = "/Game/NanosWorldAssets/Construction/SM_WoodenPalette"
+	},
+	["Range_PvP_Door"] = {
+		location = Vector(4550, 2950, 5),
+		rotation = Rotator(0, 0, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_PvP_Spawn1"] = {
+		location = Vector(5570, 2470, 105),
+		rotation = Rotator(0, 90, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_PvP_Spawn2"] = {
+		location = Vector(5650, 6490, 105),
+		rotation = Rotator(0, -90, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_PvP_Spawn3"] = {
+		location = Vector(8230, 2490, 105),
+		rotation = Rotator(0, 90, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
+	["Range_PvP_Spawn4"] = {
+		location = Vector(8250, 6440, 105),
+		rotation = Rotator(0, -90, 0),
+		scale = Vector(1, 1, 1),
+		top = 128,
+		mesh = ""
+	},
 	["Range_Shoot_Grenade110"] = {
 		location = Vector(1565.173, 7939.317, 79.35),
 		rotation = Rotator(0, -109.747, 0),
@@ -3851,6 +4064,118 @@ PROPS = {
 		asset = "nanos-world::SM_ParkBin",
 		location = Vector(-1300, 2440, 0),
 		rotation = Rotator(0, 0, 0)
+	},
+	{
+		name = "Range_PvP_Tire1_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5445, 3270, 1),
+		rotation = Rotator(0, 17, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire1_2",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5445, 3270, 31.44),
+		rotation = Rotator(0, 54, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire1_3",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5445, 3270, 61.88),
+		rotation = Rotator(0, 91, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire1_4",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5445, 3270, 92.32),
+		rotation = Rotator(0, 128, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire1_5",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5445, 3270, 122.76),
+		rotation = Rotator(0, 165, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire2_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(7680, 4490, 1),
+		rotation = Rotator(0, 34, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire2_2",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(7680, 4490, 31.44),
+		rotation = Rotator(0, 71, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire2_3",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(7680, 4490, 61.88),
+		rotation = Rotator(0, 108, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire2_4",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(7680, 4490, 92.32),
+		rotation = Rotator(0, 145, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire3_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(6460, 6180, 1),
+		rotation = Rotator(0, 51, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire3_2",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(6460, 6180, 31.44),
+		rotation = Rotator(0, 88, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire3_3",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(6460, 6180, 61.88),
+		rotation = Rotator(0, 125, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire3_4",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(6460, 6180, 92.32),
+		rotation = Rotator(0, 162, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire3_5",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(6460, 6180, 122.76),
+		rotation = Rotator(0, -161, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire4_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(5760, 5650, 1),
+		rotation = Rotator(0, 68, 0),
+		scale = Vector(0.46, 0.46, 0.46)
+	},
+	{
+		name = "Range_PvP_Tire5_1",
+		asset = "nanos-world::SM_TireLarge",
+		location = Vector(7990, 6620, 1),
+		rotation = Rotator(0, 85, 0),
+		scale = Vector(0.46, 0.46, 0.46)
 	},
 	{
 		name = "Sandbox_HouseBottle",
