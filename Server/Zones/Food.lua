@@ -6,7 +6,7 @@ local function SetTable(location, rotation, top, places)
 
 		-- A new pick lands on the table at each refill
 		Playground.Slot(function()
-			return Prop(at, Rotator(0, math.random(0, 359), 0), FOOD_ASSETS[math.random(#FOOD_ASSETS)], CollisionType.Normal, true, GrabMode.Enabled)
+			return Prop(at, Rotator(0, math.random(0, 359), 0), FOOD_ASSETS[math.random(#FOOD_ASSETS)], CollisionType.Auto, true, GrabMode.Enabled)
 		end, FOOD_REACH)
 	end
 end

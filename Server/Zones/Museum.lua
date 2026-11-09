@@ -109,7 +109,7 @@ Playground.Setup("Museum", function()
 	local barrel = Playground.Spot("Museum_Missing")
 	if (barrel) then
 		Playground.Slot(function()
-			local prop = Prop(barrel.location + Vector(0, 0, 5), Rotator(0, 20, 0), "nanos-world::SM_PlasticBarrel_01", CollisionType.Normal, true, GrabMode.Disabled)
+			local prop = Prop(barrel.location + Vector(0, 0, 5), Rotator(0, 20, 0), "nanos-world::SM_PlasticBarrel_01", CollisionType.Auto, true, GrabMode.Disabled)
 			prop:SetMaterial("nanos-world::MI_PG_MissingProp")
 			return prop
 		end, MUSEUM_MISSING_REACH)

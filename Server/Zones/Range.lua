@@ -17,7 +17,7 @@ local SHOOTABLE_LIFT = 2
 -- A thing to shoot on a marker: a plain Prop (one of assets) that Sandbox breaks by itself (Breakable), a new pick comes back a while after it is gone (shot, or removed some other way)
 local function SpawnShootable(spot, assets)
 	local asset = assets[math.random(#assets)]
-	local prop = Playground.Track(Prop(spot.location + Vector(0, 0, SHOOTABLE_LIFT), Rotator(0, math.random(0, 359), 0), asset, CollisionType.Normal, true, GrabMode.Enabled))
+	local prop = Playground.Track(Prop(spot.location + Vector(0, 0, SHOOTABLE_LIFT), Rotator(0, math.random(0, 359), 0), asset, CollisionType.Auto, true, GrabMode.Enabled))
 
 	prop:Subscribe("Destroy", function()
 		Timer.SetTimeout(function()
@@ -30,7 +30,7 @@ end
 
 -- An explosive on a barrel spot: Sandbox blows it up (the drums at once, the tanks after leaking and burning a few seconds); a while after it is gone, a new one stands in its place
 local function SpawnBarrel(spot, index)
-	local barrel = Playground.Track(Prop(spot.location + Vector(0, 0, 5), Rotator(0, index * 37, 0), RANGE_BARREL_ASSETS[(index - 1) % #RANGE_BARREL_ASSETS + 1], CollisionType.Normal, true, GrabMode.Enabled))
+	local barrel = Playground.Track(Prop(spot.location + Vector(0, 0, 5), Rotator(0, index * 37, 0), RANGE_BARREL_ASSETS[(index - 1) % #RANGE_BARREL_ASSETS + 1], CollisionType.Auto, true, GrabMode.Enabled))
 
 	barrel:Subscribe("Destroy", function()
 		Timer.SetTimeout(function()

@@ -256,7 +256,7 @@ local CUSTOM_SPAWN = {
 	-- A melon of the pyramid, turned with it so it lies along the row; Sandbox breaks each one by itself
 	-- Every melon has physics; the bottom layer has a strong angular damping, so the round melons slide instead of rolling apart under the ones on top
 	Breakable = function(_, location, rotation, offset)
-		local melon = Prop(location + Vector(0, 0, ENTITY_LIFT) + offset, rotation + Rotator(0, 90, 0), "nanos-world::SM_Fruit_Watermelon_01", CollisionType.Normal, true)
+		local melon = Prop(location + Vector(0, 0, ENTITY_LIFT) + offset, rotation + Rotator(0, 90, 0), "nanos-world::SM_Fruit_Watermelon_01", CollisionType.Auto, true)
 
 		if (offset.Z == MELON_BASE_Z) then
 			melon:SetPhysicsDamping(0.01, 50)

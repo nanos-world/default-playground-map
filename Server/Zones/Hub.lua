@@ -44,7 +44,7 @@ local function SpawnPicnic(picnic)
 		local location = Playground.At(picnic, x, math.random(-15, 15), picnic.top + 2)
 
 		Playground.Slot(function()
-			return Prop(location, Rotator(0, yaw + math.random(-40, 40), 0), asset, CollisionType.Normal, true, GrabMode.Enabled)
+			return Prop(location, Rotator(0, yaw + math.random(-40, 40), 0), asset, CollisionType.Auto, true, GrabMode.Enabled)
 		end, PICNIC_REACH)
 	end
 end
