@@ -23,17 +23,18 @@ Package.Require("Halloween.lua")
 
 -- Text shown in the escape menu, it replaces the Sandbox's one since the map loads after the game mode
 Client.SetEscapeMenuText([[
-<h1>Playground</>
+# Playground
 
 A tour of what nanos world offers out of the box. Walk through the coloured doors to try weapons, vehicles, physics, the sandbox tools and every native entity.
 
-<h2>Sandbox Controls</>
-- <strong>Q:</> Spawn Menu, with props, entities, weapons, vehicles and tools
-- <strong>C:</> Context Menu, to tweak your character and the world
-- <strong>Z:</> Undo the last thing you spawned
-- <strong>B:</> No Clip
-- <strong>J:</> Ragdoll
-- <strong>Tab:</> Scoreboard
+## Sandbox Controls
+
+- **Q:** Spawn Menu, with props, entities, weapons, vehicles and tools
+- **C:** Context Menu, to tweak your character and the world
+- **Z:** Undo the last thing you spawned
+- **B:** No Clip
+- **J:** Ragdoll
+- **Tab:** Scoreboard
 ]])
 
 Package.Subscribe("Load", function()
